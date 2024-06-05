@@ -74,7 +74,7 @@ class _ScanState extends State<Scan> {
           // Use Get.back() to return the scanned result
           Get.back(result: capture);
         },
-        overlay: Positioned(
+        overlayBuilder: (BuildContext context, BoxConstraints constraints) => Positioned(
           child: ScannerBox(width: 300, height: 300),
         ),
       ),
