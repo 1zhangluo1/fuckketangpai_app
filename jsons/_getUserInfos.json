@@ -1,0 +1,30 @@
+{
+  "data": {
+    "usertype": "0",
+    "username": "jack",
+    "account": "ktp12345678",
+    "avatar": "http:\/\/assets.ketangpai.com\/\/Public\/Common\/img\/40\/29.png",
+    "stno": "2300311111",
+    "school": "\u6842\u6797\u7535\u5b50\u79d1\u6280\u5927\u5b66",
+    "email": null,
+    "mobile": "12345678911",
+    "department": null,
+    "teachcourseid": "",
+    "isenterprise": 0,
+    "coid": -1,
+    "vipObject": {
+      "coid": -1,
+      "vip": 0,
+      "triplescreen": 0,
+      "jigouVip": []
+    },
+    "token": "aaa",
+    "oldtoken": "aaa",
+    "uid": "aaa",
+    "isvip": 0,
+    "setting": "",
+    "mobile_url": "https:\/\/w.ketangpai.com",
+    "bindWechat": true,
+    "coidAdmin": 0
+  }
+}
