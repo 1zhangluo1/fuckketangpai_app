@@ -44,6 +44,7 @@ dependencies:
   crypto: ^3.0.3
   pointycastle: ^3.9.1
   shared_preferences: ^2.2.3
+  web_socket_channel: ^2.4.5
 
 
 dev_dependencies:

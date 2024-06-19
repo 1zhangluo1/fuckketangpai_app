@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
-import 'package:fuckketangpai/GetInformation/getUserInfo.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/home.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/tools/encrypt_loginpass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+
+import '../Internet/getUserInfo.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

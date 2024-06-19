@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dios;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../selfwidgets/Toast.dart';
 
 Future<void> sign(String params) async {
@@ -15,18 +16,24 @@ Future<void> sign(String params) async {
   print("expire:" + expire);
   print("ticketid:" + ticketid);
   print("sign:" + sign);
-  final dio = dios.Dio();
   Map<String, dynamic> body = {
     'ticketid': ticketid,
     "expire": expire,
     "sign": sign,
     "reqtimestamp": reqtimestamp
   };
-  dio.options.headers = {
-    'Content-Type': 'application/json',
-    'token': '3ac938c4773acc9cff1fe0427de0d77c40882f8557ae73d775402834a6980fcf',
-  };
-  dios.Response response = await dio.post(url, data: body,);
-  print(response.toString());
-  Toast(response.data['data']['info']);
+  try {
+    final dio = dios.Dio();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String token = await pref.getString('token')??'';
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'token': token,
+    };
+    dios.Response response = await dio.post(url, data: body,);
+    print(response.toString());
+    Toast(response.data['data']['info']);
+  } on Exception catch (e) {
+    Toast(e.toString());
+  }
 }

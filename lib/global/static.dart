@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fuckketangpai/GetInformation/getUserInfo.dart';
 import 'package:fuckketangpai/models/userInfo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Internet/getUserInfo.dart';
 
 class Global {
   static String ketangpai_login_key = "ktp4567890123456"; // 16-byte key
