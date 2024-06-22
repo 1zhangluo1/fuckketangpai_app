@@ -16,7 +16,3 @@ void connectToWebSocket() {
     Toast(e.toString());
   }
 }
-
-void senMessage() {
-  channel.sink.add('课堂派');
-}
