@@ -15,7 +15,7 @@ class Scan extends StatefulWidget {
 class _ScanState extends State<Scan> {
   bool hasCustomVibrationsSupport = false;
   bool isFlash = false;
-  MobileScannerController controller = MobileScannerController(detectionSpeed: DetectionSpeed.unrestricted,formats: [BarcodeFormat.all]);
+  MobileScannerController controller = MobileScannerController();
 
   @override
   void initState() {
