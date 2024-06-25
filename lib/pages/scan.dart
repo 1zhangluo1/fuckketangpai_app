@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:vibration/vibration.dart';
-import 'dart:math';
 
 class Scan extends StatefulWidget {
   const Scan({super.key});
@@ -15,12 +15,7 @@ class Scan extends StatefulWidget {
 class _ScanState extends State<Scan> {
   bool hasCustomVibrationsSupport = false;
   bool isFlash = false;
-  MobileScannerController? controller;
-  double _currentScale = 1.0;
-  double _baseScale = 1.0;
-  final double _scaleThreshold = 0.15; // 缩放阈值
-  double _lastScaleUpdate = 1.0;
-  final double _zoomFactor = 2.0; // 缩放倍数因子
+  MobileScannerController controller = MobileScannerController();
 
   @override
   void initState() {
@@ -30,89 +25,60 @@ class _ScanState extends State<Scan> {
 
   initAsync() async {
     (await Vibration.hasCustomVibrationsSupport())?.let((it) {
-      setState(() {
-        hasCustomVibrationsSupport = it;
-      });
+      hasCustomVibrationsSupport = it;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (controller == null) {
-        final mediaQuery = MediaQuery.of(context);
-        final devicePixelRatio = mediaQuery.devicePixelRatio;
-        final size = Size(constraints.maxWidth, constraints.maxHeight) * devicePixelRatio;
-        print("相机大小：${size}, 像素密度: ${devicePixelRatio}");
-
-        controller = MobileScannerController(cameraResolution: size);
-      }
-
-      return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.white, // 设置 AppBar 上图标的颜色为白色
-          ),
-          backgroundColor: Colors.transparent,
-          titleTextStyle: TextStyle(
-            color: Colors.white, // 设置标题文字颜色为白色
-            fontSize: 20, // 可以在这里设置字体大小
-            fontWeight: FontWeight.bold, // 设置字体加粗
-          ),
-          elevation: 0,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  controller?.toggleTorch();
-                  setState(() {
-                    isFlash = !isFlash;
-                  });
-                },
-                icon: Icon(isFlash ? Icons.flash_off_outlined : Icons.flash_on_outlined))
-          ],
-          title: Text("扫码"),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, // 设置 AppBar 上图标的颜色为白色
         ),
-        body: GestureDetector(
-          onScaleStart: (details) {
-            _baseScale = _currentScale;
-          },
-          onScaleUpdate: (details) {
-            double newScale = (_baseScale * pow(details.scale, _zoomFactor)).clamp(1.0, 10.0);
-            if ((newScale - _lastScaleUpdate).abs() > _scaleThreshold) {
-              setState(() {
-                _currentScale = newScale;
-                double normalizedScale = log(_currentScale) / log(10.0); // 对数缩放
-                controller?.setZoomScale(normalizedScale);
-                _lastScaleUpdate = newScale;
-              });
-            }
-          },
-          child: MobileScanner(
-            controller: controller,
-            onDetect: (capture) async {
-              controller?.stop();
-
-              if (hasCustomVibrationsSupport) {
-                Vibration.vibrate(duration: 100);
-              } else {
-                Vibration.vibrate();
-              }
-              // Play sound
-              await Future.delayed(Duration(milliseconds: 100));
-              // Vibrate
-
-              // Use Get.back() to return the scanned result
-              Get.back(result: capture);
-            },
-            overlayBuilder: (BuildContext context, BoxConstraints constraints) =>
-                Positioned(
-                  child: ScannerBox(width: 300, height: 300),
-                ),
-          ),
+        backgroundColor: Colors.transparent,
+        titleTextStyle: TextStyle(
+          color: Colors.white, // 设置标题文字颜色为白色
+          fontSize: 20, // 可以在这里设置字体大小
+          fontWeight: FontWeight.bold, // 设置字体加粗
         ),
-      );
-    });
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                controller.toggleTorch();
+                setState(() {
+                  isFlash = !isFlash;
+                });
+              },
+              icon: Icon(
+                  isFlash ? Icons.flash_off_outlined : Icons.flash_on_outlined))
+        ],
+        title: Text("扫码"),
+      ),
+      body: MobileScanner(
+        controller: controller,
+        onDetect: (capture) async {
+          controller.stop();
+
+          if (hasCustomVibrationsSupport) {
+            Vibration.vibrate(duration: 100);
+          } else {
+            Vibration.vibrate();
+          }
+          // Play sound
+          await Future.delayed(Duration(milliseconds: 100));
+          // Vibrate
+
+          // Use Get.back() to return the scanned result
+          Get.back(result: capture);
+        },
+        overlayBuilder: (BuildContext context, BoxConstraints constraints) => Positioned(
+          child: ScannerBox(width: 300, height: 300),
+        ),
+      ),
+    );
   }
 }
 
