@@ -11,7 +11,6 @@ class Global {
   static Rx<User> user = User('','','','','','','').obs; //用户信息
   static bool login = false;
   static Future init() async {
-    WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences pref = await SharedPreferences.getInstance();
     login = await pref.getBool('login')??false;
     if(login) {

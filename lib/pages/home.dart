@@ -1,16 +1,10 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart' as dios;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:fuckketangpai/Internet/connectWebSocket.dart';
 import 'package:fuckketangpai/pages/profiles.dart';
 import 'package:fuckketangpai/tools/sign.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'scan.dart';
 import '../selfwidgets/Toast.dart';
 
@@ -60,6 +54,7 @@ class _QrScanState extends State<QrScan> {
                     BarcodeCapture result = await Get.to(Scan());
                     senMessage(result.barcodes.first.rawValue.toString());
                     text.value = result.barcodes.first.rawValue.toString();
+                    sign(result.barcodes.first.rawValue.toString());
                   },
                   child: Text("点击扫码"),
                 ),
