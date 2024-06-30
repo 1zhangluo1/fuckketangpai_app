@@ -114,6 +114,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 leading: Icon(Icons.class_outlined),
                 title: Text('我的课程'),
                 onTap: () {
+                  widget.pageController.jumpToPage(2);
+                  Scaffold.of(context).closeDrawer();
                   print('我的课程列表');
                 },
               ),
@@ -124,6 +126,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 leading: Icon(Icons.email_outlined),
                 title: Text('意见反馈'),
                 onTap: () {
+                  widget.pageController.jumpToPage(3);
+                  Scaffold.of(context).closeDrawer();
                   print('意见反馈');
                 },
               ),
@@ -150,7 +154,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.clear();
-      Global.user.value = User('', '', '', '', '', '', '');
+      Global.user.value = User('', '', '', '', '', '', '','','');
       Global.login = false;
       Toast('退出成功');
     } on Exception catch (e) {

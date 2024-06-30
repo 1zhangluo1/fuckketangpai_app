@@ -5,7 +5,8 @@ import 'package:fuckketangpai/models/userInfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> getUserInf() async {
-  String url = 'https://openapiv5.ketangpai.com//UserApi/getUserBasinInfo';
+  String url1 = 'https://openapiv5.ketangpai.com//UserApi/getUserBasinInfo';
+  String url2 = 'https://openapiv5.ketangpai.com//UserApi/getUserInfo';
   int reqtimestamp = DateTime.now().millisecondsSinceEpoch;
   Map<String, int> body = {'reqtimestamp': reqtimestamp};
   Dio dio = Dio();
@@ -14,16 +15,20 @@ Future<void> getUserInf() async {
   dio.options.headers = {
     'token': token,
   };
-  Response response = await dio.post(url, data: body);
-  dynamic temp = response.data;
+  Response response1 = await dio.post(url2, data: body);
+  Response response2 = await dio.post(url1,data: body);
+  dynamic temp = response1.data;
   GetUserInfos info = GetUserInfos.fromJson(temp);
+  print('入学时间' + info.data.additionInfo.enrolltime.toString());
   Global.user.value = User(
     info.data.username,
     info.data.stno,
     info.data.uid,
     info.data.avatar,
-    info.data.mobile,
+    response2.data['data']['mobile'],
     info.data.school,
     info.data.usertype,
+    info.data.additionInfo.grade,
+    info.data.additionInfo.enrolltime,
   );
 }

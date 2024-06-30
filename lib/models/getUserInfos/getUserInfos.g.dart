@@ -17,66 +17,55 @@ Map<String, dynamic> _$GetUserInfosToJson(GetUserInfos instance) =>
       'data': instance.data.toJson(),
     };
 
-VipObject _$VipObjectFromJson(Map<String, dynamic> json) => VipObject(
-      coid: (json['coid'] as num?)?.toInt() ?? 0,
-      vip: (json['vip'] as num?)?.toInt() ?? 0,
-      triplescreen: (json['triplescreen'] as num?)?.toInt() ?? 0,
-      jigouVip: json['jigouVip'] as List<dynamic>? ?? [],
+AdditionInfo _$AdditionInfoFromJson(Map<String, dynamic> json) => AdditionInfo(
+      enrolltime: json['enrolltime'] as String? ?? '',
+      grade: json['grade'] as String? ?? '',
+      classno: json['classno'] as String? ?? '',
     );
 
-Map<String, dynamic> _$VipObjectToJson(VipObject instance) => <String, dynamic>{
-      'coid': instance.coid,
-      'vip': instance.vip,
-      'triplescreen': instance.triplescreen,
-      'jigouVip': instance.jigouVip,
+Map<String, dynamic> _$AdditionInfoToJson(AdditionInfo instance) =>
+    <String, dynamic>{
+      'enrolltime': instance.enrolltime,
+      'grade': instance.grade,
+      'classno': instance.classno,
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      usertype: json['usertype'] as String? ?? '',
+      uid: json['uid'] as String? ?? '',
       username: json['username'] as String? ?? '',
-      account: json['account'] as String? ?? '',
       avatar: json['avatar'] as String? ?? '',
+      department: json['department'],
+      usertype: json['usertype'] as String? ?? '',
+      email: json['email'],
       stno: json['stno'] as String? ?? '',
       school: json['school'] as String? ?? '',
-      email: json['email'],
+      account: json['account'] as String? ?? '',
       mobile: json['mobile'] as String? ?? '',
-      department: json['department'],
       teachcourseid: json['teachcourseid'] as String? ?? '',
-      isenterprise: (json['isenterprise'] as num?)?.toInt() ?? 0,
-      coid: (json['coid'] as num?)?.toInt() ?? 0,
-      vipObject: json['vipObject'] == null
-          ? VipObject.emptyInstance()
-          : VipObject.fromJson(json['vipObject'] as Map<String, dynamic>),
-      token: json['token'] as String? ?? '',
-      oldtoken: json['oldtoken'] as String? ?? '',
-      uid: json['uid'] as String? ?? '',
-      isvip: (json['isvip'] as num?)?.toInt() ?? 0,
-      setting: json['setting'] as String? ?? '',
-      mobileUrl: json['mobile_url'] as String? ?? '',
-      bindWechat: json['bindWechat'] as bool? ?? false,
-      coidAdmin: (json['coidAdmin'] as num?)?.toInt() ?? 0,
+      attestInfo: json['attestInfo'] as List<dynamic>? ?? [],
+      openid: json['openid'] as String? ?? '',
+      unionid: json['unionid'] as String? ?? '',
+      teachcourse: json['teachcourse'] as List<dynamic>? ?? [],
+      additionInfo: json['additionInfo'] == null
+          ? AdditionInfo.emptyInstance()
+          : AdditionInfo.fromJson(json['additionInfo'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
-      'usertype': instance.usertype,
+      'uid': instance.uid,
       'username': instance.username,
-      'account': instance.account,
       'avatar': instance.avatar,
+      'department': instance.department,
+      'usertype': instance.usertype,
+      'email': instance.email,
       'stno': instance.stno,
       'school': instance.school,
-      'email': instance.email,
+      'account': instance.account,
       'mobile': instance.mobile,
-      'department': instance.department,
       'teachcourseid': instance.teachcourseid,
-      'isenterprise': instance.isenterprise,
-      'coid': instance.coid,
-      'vipObject': instance.vipObject.toJson(),
-      'token': instance.token,
-      'oldtoken': instance.oldtoken,
-      'uid': instance.uid,
-      'isvip': instance.isvip,
-      'setting': instance.setting,
-      'mobile_url': instance.mobileUrl,
-      'bindWechat': instance.bindWechat,
-      'coidAdmin': instance.coidAdmin,
+      'attestInfo': instance.attestInfo,
+      'openid': instance.openid,
+      'unionid': instance.unionid,
+      'teachcourse': instance.teachcourse,
+      'additionInfo': instance.additionInfo.toJson(),
     };

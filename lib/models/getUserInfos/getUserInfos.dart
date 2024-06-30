@@ -20,71 +20,68 @@ class GetUserInfos {
 }
 
 @JsonSerializable(explicitToJson: true)
-class VipObject {
+class AdditionInfo {
 
-  VipObject(
-      {required this.coid,
-      required this.vip,
-      required this.triplescreen,
-      required this.jigouVip});
+  AdditionInfo(
+      {required this.enrolltime,
+      required this.grade,
+      required this.classno});
 
-  @JsonKey(name: "coid", defaultValue: 0)
-  int coid;
+  @JsonKey(name: "enrolltime", defaultValue: "")
+  String enrolltime;
 
-  @JsonKey(name: "vip", defaultValue: 0)
-  int vip;
+  @JsonKey(name: "grade", defaultValue: "")
+  String grade;
 
-  @JsonKey(name: "triplescreen", defaultValue: 0)
-  int triplescreen;
-
-  @JsonKey(name: "jigouVip", defaultValue: [])
-  List jigouVip;
+  @JsonKey(name: "classno", defaultValue: "")
+  String classno;
 
 
-  factory VipObject.fromJson(Map<String, dynamic> json) => _$VipObjectFromJson(json);
+  factory AdditionInfo.fromJson(Map<String, dynamic> json) => _$AdditionInfoFromJson(json);
   
-  Map<String, dynamic> toJson() => _$VipObjectToJson(this);
+  Map<String, dynamic> toJson() => _$AdditionInfoToJson(this);
   
-  factory VipObject.emptyInstance() => VipObject(coid: 0, vip: 0, triplescreen: 0, jigouVip: []);
+  factory AdditionInfo.emptyInstance() => AdditionInfo(enrolltime: "", grade: "", classno: "");
 }
 
 @JsonSerializable(explicitToJson: true)
 class Data {
 
   Data(
-      {required this.usertype,
+      {required this.uid,
       required this.username,
-      required this.account,
       required this.avatar,
+      this.department,
+      required this.usertype,
+      this.email,
       required this.stno,
       required this.school,
-      this.email,
+      required this.account,
       required this.mobile,
-      this.department,
       required this.teachcourseid,
-      required this.isenterprise,
-      required this.coid,
-      required this.vipObject,
-      required this.token,
-      required this.oldtoken,
-      required this.uid,
-      required this.isvip,
-      required this.setting,
-      required this.mobileUrl,
-      required this.bindWechat,
-      required this.coidAdmin});
+      required this.attestInfo,
+      required this.openid,
+      required this.unionid,
+      required this.teachcourse,
+      required this.additionInfo});
 
-  @JsonKey(name: "usertype", defaultValue: "")
-  String usertype;
+  @JsonKey(name: "uid", defaultValue: "")
+  String uid;
 
   @JsonKey(name: "username", defaultValue: "")
   String username;
 
-  @JsonKey(name: "account", defaultValue: "")
-  String account;
-
   @JsonKey(name: "avatar", defaultValue: "")
   String avatar;
+
+  @JsonKey(name: "department")
+  dynamic department;
+
+  @JsonKey(name: "usertype", defaultValue: "")
+  String usertype;
+
+  @JsonKey(name: "email")
+  dynamic email;
 
   @JsonKey(name: "stno", defaultValue: "")
   String stno;
@@ -92,57 +89,36 @@ class Data {
   @JsonKey(name: "school", defaultValue: "")
   String school;
 
-  @JsonKey(name: "email")
-  dynamic email;
+  @JsonKey(name: "account", defaultValue: "")
+  String account;
 
   @JsonKey(name: "mobile", defaultValue: "")
   String mobile;
 
-  @JsonKey(name: "department")
-  dynamic department;
-
   @JsonKey(name: "teachcourseid", defaultValue: "")
   String teachcourseid;
 
-  @JsonKey(name: "isenterprise", defaultValue: 0)
-  int isenterprise;
+  @JsonKey(name: "attestInfo", defaultValue: [])
+  List attestInfo;
 
-  @JsonKey(name: "coid", defaultValue: 0)
-  int coid;
+  @JsonKey(name: "openid", defaultValue: "")
+  String openid;
 
-  @JsonKey(name: "vipObject", defaultValue: VipObject.emptyInstance)
-  VipObject vipObject;
+  @JsonKey(name: "unionid", defaultValue: "")
+  String unionid;
 
-  @JsonKey(name: "token", defaultValue: "")
-  String token;
+  @JsonKey(name: "teachcourse", defaultValue: [])
+  List teachcourse;
 
-  @JsonKey(name: "oldtoken", defaultValue: "")
-  String oldtoken;
-
-  @JsonKey(name: "uid", defaultValue: "")
-  String uid;
-
-  @JsonKey(name: "isvip", defaultValue: 0)
-  int isvip;
-
-  @JsonKey(name: "setting", defaultValue: "")
-  String setting;
-
-  @JsonKey(name: "mobile_url", defaultValue: "")
-  String mobileUrl;
-
-  @JsonKey(name: "bindWechat", defaultValue: false)
-  bool bindWechat;
-
-  @JsonKey(name: "coidAdmin", defaultValue: 0)
-  int coidAdmin;
+  @JsonKey(name: "additionInfo", defaultValue: AdditionInfo.emptyInstance)
+  AdditionInfo additionInfo;
 
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
   
   Map<String, dynamic> toJson() => _$DataToJson(this);
   
-  factory Data.emptyInstance() => Data(usertype: "", username: "", account: "", avatar: "", stno: "", school: "", mobile: "", teachcourseid: "", isenterprise: 0, coid: 0, vipObject: VipObject.emptyInstance(), token: "", oldtoken: "", uid: "", isvip: 0, setting: "", mobileUrl: "", bindWechat: false, coidAdmin: 0);
+  factory Data.emptyInstance() => Data(uid: "", username: "", avatar: "", usertype: "", stno: "", school: "", account: "", mobile: "", teachcourseid: "", attestInfo: [], openid: "", unionid: "", teachcourse: [], additionInfo: AdditionInfo.emptyInstance());
 }
 
 

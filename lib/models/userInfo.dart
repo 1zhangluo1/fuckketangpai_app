@@ -6,6 +6,8 @@ class User {
   final String phone;
   final String school;
   final String identity;
+  final String grade;
+  final String enterTime;
 
   const User(
     this.name,
@@ -15,5 +17,7 @@ class User {
     this.phone,
     this.school,
     this.identity,
+    this.grade,
+    this.enterTime,
   );
 }
