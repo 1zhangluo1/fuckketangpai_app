@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
+import 'package:fuckketangpai/selfwidgets/TimeCountDown.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
@@ -26,6 +26,7 @@ class _phone_loginState extends State<phone_login>
   late String sessionId;
   final verifyKey = GlobalKey<FormFieldState>();
   final verifyCodeController = TextEditingController();
+  RxBool isSend = false.obs;
 
   @override
   void initState() {
@@ -87,17 +88,19 @@ class _phone_loginState extends State<phone_login>
                   ),
                 ),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                ElevatedButton(
-                  onPressed: () {
-                    if (verifyKey.currentState?.validate() ?? false) {
-                      getVerifyCode();
-                    }
-                  },
-                  child: Text('发送验证码'),
-                  style: ElevatedButton.styleFrom(
-                      surfaceTintColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                Obx(
+                  () => isSend.value ? TimeCountDown(countdownTime: 60,timeEndFun: () {isSend.value = false;},) : ElevatedButton(
+                    onPressed: () {
+                      if (verifyKey.currentState?.validate() ?? false) {
+                        getVerifyCode();
+                      }
+                    },
+                    child: Text('发送验证码'),
+                    style: ElevatedButton.styleFrom(
+                        surfaceTintColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                  ),
                 ),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
               ],
@@ -177,10 +180,12 @@ class _phone_loginState extends State<phone_login>
     dios.Response response = await dio.post(url, data: sendBody);
     if (response.data['status'] == 1) {
       Toast('发送成功');
+      isSend.value = true;
     } else
       Toast('发送失败');
   }
 
   @override
   bool get wantKeepAlive => true;
+
 }
