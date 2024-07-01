@@ -70,6 +70,7 @@ class _MainStructState extends State<MainStruct> {
         }),
       ),
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
           DetailProfileInfo(),
