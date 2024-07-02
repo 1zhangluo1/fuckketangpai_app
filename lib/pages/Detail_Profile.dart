@@ -53,7 +53,7 @@ class _DetailProfileInfoState extends State<DetailProfileInfo> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(Global.user.value.grade == '1' ? '大一' : '其余年级',textScaleFactor: 1.3,style: TextStyle(color: Colors.white),),
+                  Text(getGrade(Global.user.value.grade),textScaleFactor: 1.3,style: TextStyle(color: Colors.white),),
                   SizedBox(
                     width: 10,
                   ),
@@ -160,4 +160,20 @@ class _DetailProfileInfoState extends State<DetailProfileInfo> {
       ],
     );
   }
+
+  String getGrade(String n) {
+    switch (n) {
+      case '1':
+        return '大一';
+      case '2':
+        return '大二';
+      case '3':
+        return '大三';
+      case '4':
+        return '大四';
+      default:
+        return '无数据';
+    }
+  }
+
 }

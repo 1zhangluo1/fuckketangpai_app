@@ -20,4 +20,10 @@ class User {
     this.grade,
     this.enterTime,
   );
+
+  @override
+  String toString() {
+    return 'User{name: $name, id: $id, uid: $uid, headImageuri: $headImageuri, phone: $phone, school: $school, identity: $identity, grade: $grade, enterTime: $enterTime}';
+  }
+
 }

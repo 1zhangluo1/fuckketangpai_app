@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/Detail_Profile.dart';
 import 'package:fuckketangpai/pages/Drawer_menu.dart';
-import 'package:fuckketangpai/pages/Shared_sign_room.dart';
+import 'package:fuckketangpai/pages/Rooms_list.dart';
 import 'package:fuckketangpai/pages/My_classes.dart';
 import 'package:fuckketangpai/pages/upload_suggest.dart';
 import 'package:get/get.dart';
@@ -54,15 +54,17 @@ class _MainStructState extends State<MainStruct> {
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Obx(
-                () => Image.network(
-                  Global.user.value.headImageuri,
-                  fit: BoxFit.contain,
-                  errorBuilder: (BuildContext context, Object exception,
-                      StackTrace? stackTrace) {
-                    return ClipOval(
-                      child: Icon(Icons.person,size: 35,),
-                    );
-                  },
+                () => ClipOval(
+                  child: Image.network(
+                    Global.user.value.headImageuri,
+                    fit: BoxFit.contain,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return ClipOval(
+                        child: Icon(Icons.person,size: 35,),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

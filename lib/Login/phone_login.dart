@@ -43,67 +43,73 @@ class _phone_loginState extends State<phone_login>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child: Container(
-              width: double.infinity,
-              child: TextFormField(
-                key: verifyKey,
-                controller: widget.phoneController,
-                decoration: InputDecoration(
-                  focusColor: Colors.blueAccent[100],
-                  icon: Icon(Icons.phone),
-                  iconColor: Colors.blueAccent,
-                  labelText: '电话号码',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+              child: Container(
+                width: double.infinity,
+                child: TextFormField(
+                  key: verifyKey,
+                  controller: widget.phoneController,
+                  decoration: InputDecoration(
+                    focusColor: Colors.blueAccent[100],
+                    icon: Icon(Icons.phone),
+                    iconColor: Colors.blueAccent,
+                    labelText: '电话号码',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
+                  validator: (v) {
+                    return v!.trim().length == 11 ? null : '电话号码不符合格式';
+                  },
                 ),
-                validator: (v) {
-                  return v!.trim().length == 11 ? null : '电话号码不符合格式';
-                },
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 0, 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: TextFormField(
-                    controller: widget.validController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.verified),
-                      iconColor: Colors.blueAccent,
-                      labelText: '验证码',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextFormField(
+                      controller: widget.validController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.verified),
+                        iconColor: Colors.blueAccent,
+                        labelText: '验证码',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      validator: (v) {
+                        return v!.trim().isEmpty ? '验证码不能为空' : null;
+                      },
                     ),
-                    validator: (v) {
-                      return v!.trim().isEmpty ? '验证码不能为空' : null;
-                    },
                   ),
-                ),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                Obx(
-                  () => isSend.value ? TimeCountDown(countdownTime: 60,timeEndFun: () {isSend.value = false;},) : ElevatedButton(
-                    onPressed: () {
-                      if (verifyKey.currentState?.validate() ?? false) {
-                        getVerifyCode();
-                      }
-                    },
-                    child: Text('发送验证码'),
-                    style: ElevatedButton.styleFrom(
-                        surfaceTintColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                  Obx(
+                    () => isSend.value ? TimeCountDown(countdownTime: 60,timeEndFun: () {isSend.value = false;},) : ElevatedButton(
+                      onPressed: () {
+                        if (verifyKey.currentState?.validate() ?? false) {
+                          getVerifyCode();
+                        }
+                      },
+                      child: Text('发送验证码'),
+                      style: ElevatedButton.styleFrom(
+                          surfaceTintColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                    ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-              ],
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                ],
+              ),
             ),
           ),
         ],

@@ -19,7 +19,6 @@ Future<void> getUserInf() async {
   Response response2 = await dio.post(url1,data: body);
   dynamic temp = response1.data;
   GetUserInfos info = GetUserInfos.fromJson(temp);
-  print('入学时间' + info.data.additionInfo.enrolltime.toString());
   Global.user.value = User(
     info.data.username,
     info.data.stno,
@@ -31,4 +30,5 @@ Future<void> getUserInf() async {
     info.data.additionInfo.grade,
     info.data.additionInfo.enrolltime,
   );
+  print(Global.user.value.toString());
 }
