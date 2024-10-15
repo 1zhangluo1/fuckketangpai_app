@@ -154,8 +154,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.clear();
-      Global.user.value = User('', '', '', '', '', '', '','','');
+      Global.user.value = User('', '', '', '', '', '', '','','','');
       Global.login = false;
+      Global.users.list.clear();
       Toast('退出成功');
     } on Exception catch (e) {
       Toast('退出遇到了一点意外:' + e.toString());

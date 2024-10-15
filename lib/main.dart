@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/Login/Login.dart';
 import 'package:fuckketangpai/global/static.dart';
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Global.init();
+
   runApp(MyApp());
 }
 

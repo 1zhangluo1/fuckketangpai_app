@@ -195,23 +195,27 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('token', response.data['data']['token']);
         pref.setBool('login', true);
+
         await getUserInf();
+       
         Map<String, dynamic> saveBody = {
           'name': Global.user.value.name,
           'student_id': Global.user.value.id,
           'school': Global.user.value.school,
           'phone': Global.user.value.phone,
         };
-        dios.Response saveResult = await dio.post(
-            'http://172.16.0.108:9745/fuckketangpai/add_new_user',
-            data: saveBody);
-        if (saveResult.data['code'] == 200 || saveResult.data['code'] == 201) {
-          Toast('登录成功');
-          Get.offAll(MainStruct());
-        } else {
-          print(saveResult.data.toString());
-          Toast('登录失败');
-        }
+        
+        Get.offAll(MainStruct());
+        //   dios.Response saveResult = await dio.post(
+        //       'http://172.16.0.108:9745/fuckketangpai/add_new_user',
+        //       data: saveBody);
+        //   if (saveResult.data['code'] == 200 || saveResult.data['code'] == 201) {
+        //     Toast('登录成功');
+        //     Get.offAll(MainStruct());
+        //   } else {
+        //     print(saveResult.data.toString());
+        //     Toast('登录失败');
+        //   }
       } else {
         print(response.data.toString());
         Toast('登录失败');
