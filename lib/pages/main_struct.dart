@@ -15,10 +15,7 @@ class MainStruct extends StatefulWidget {
 }
 
 class _MainStructState extends State<MainStruct> {
-
-  final pageController = PageController(
-    initialPage: 1
-  );
+  final pageController = PageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +54,16 @@ class _MainStructState extends State<MainStruct> {
                 () => ClipOval(
                   child: Image.network(
                     Global.user.value.headImageuri,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
+                    width: 100.0, // 容器宽度
+                    height: 100.0, // 容器高度
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                       return ClipOval(
-                        child: Icon(Icons.person,size: 35,),
+                        child: Icon(
+                          Icons.person,
+                          size: 35,
+                        ),
                       );
                     },
                   ),

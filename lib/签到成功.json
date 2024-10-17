@@ -1,0 +1,14 @@
+{
+    "status": 1,
+    "code": 10000,
+    "message": "访问成功",
+    "data": {
+        "ipconflict": 1,
+        "attenceid": "MDAwMDAwMDAwMLScvduIqb9phMtyoQ",
+        "courseid": "MDAwMDAwMDAwMLOcqd2H37tqhbVyoQ",
+        "info": "恭喜您签到成功！</br></br>班级名称：熟悉  互动课堂</br>考勤名称：2024.10.15</br>签到时间：2024-10-15 12:37</br>状态：签到成功",
+        "status": 1,
+        "coursename": "熟悉  互动课堂",
+        "state": 8
+    }
+}

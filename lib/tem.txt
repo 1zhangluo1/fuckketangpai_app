@@ -1,0 +1,4 @@
+https://w.ketangpai.com/checkIn/checkinCodeResult?type=2&ticketid=MDAwMDAwMDAwMLOsz5WHqc1shLiclA&expire=1728868700&sign=446e1fc941ade8fbfea32c2451e30230baf454ee&courseid=MDAwMDAwMDAwMLOcqd2H37tqhbVyoQ&randNum=FX82GVCK
+https://w.ketangpai.com/checkIn/checkinCodeResult?type=2&ticketid=MDAwMDAwMDAwMLOsz5WHqc1shLiclA&expire=1728868920&sign=cf8a4cb6cb7dfc4c12e4c2bbb5252e5abdc28ba5&courseid=MDAwMDAwMDAwMLOcqd2H37tqhbVyoQ&randNum=KQL4FE2J
+https://w.ketangpai.com/checkIn/checkinCodeResult?type=2&ticketid=MDAwMDAwMDAwMLOsz5WHqc1shLiclA&expire=1728869001&sign=156b73bf00b937287cd819e5fc78eefac0247fcd&courseid=MDAwMDAwMDAwMLOcqd2H37tqhbVyoQ&randNum=8YS8KC2E
+https://w.ketangpai.com/checkIn/checkinCodeResult?type=2&ticketid=MDAwMDAwMDAwMLOsz5WHqc1shM5-3g&expire=1728869114&sign=c58e009bc9df372d2ff0c6de1207132b232cb5e8&courseid=MDAwMDAwMDAwMLOcqd2H37tqhbVyoQ&randNum=JQVUBXE5

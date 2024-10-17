@@ -97,6 +97,7 @@ class _QrScanState extends State<QrScan> {
                   child: Text("点击扫码"),
                 ),
               ),
+              
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Obx(() => SelectableText(
@@ -113,7 +114,9 @@ class _QrScanState extends State<QrScan> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    connectionState.value ? Toast('请勿重复连接') : connectToWebSocket();
+                    connectionState.value
+                        ? Toast('请勿重复连接')
+                        : connectToWebSocket();
                   },
                   child: Text('连接服务器')),
               Padding(
