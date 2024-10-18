@@ -56,7 +56,7 @@ class _QrScanState extends State<QrScan> {
                         child: Container(
                           width: 20,
                           height: 20,
-                          color: connectionState.value == 1
+                          color: connectionState.value
                               ? Colors.greenAccent
                               : Colors.grey,
                         ),
@@ -65,7 +65,7 @@ class _QrScanState extends State<QrScan> {
                         width: 10,
                       ),
                       Text(
-                        '连接状态: ${connectionState.value == 1 ? '正常连接' : '未连接'}',
+                        '连接状态: ${connectionState.value ? '正常连接' : '未连接'}',
                         style: TextStyle(fontSize: 20),
                       ),
                     ],
@@ -149,6 +149,7 @@ class _QrScanState extends State<QrScan> {
       channel = IOWebSocketChannel.connect('ws://172.16.0.108:9745/connection');
       channel?.stream.listen(
         (event) {
+          connectionState.value = true;
           Map<String, dynamic> result = jsonDecode(event);
           print(result['content'] + '\n' + result['type']);
           if (result['type'] == 'sign') {
@@ -156,6 +157,8 @@ class _QrScanState extends State<QrScan> {
             Toast(result['content']);
           } else if (result['type'] == 'onlineNums') {
             userNumbers.value = int.parse(result['content']);
+          } else if (event == '1') {
+            connectionState.value = true;
           } else {
             Toast(result.toString());
           }
