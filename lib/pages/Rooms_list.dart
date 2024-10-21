@@ -11,6 +11,5 @@ class Shared_sign_room extends StatefulWidget {
 class _Shared_sign_roomState extends State<Shared_sign_room> {
   @override
   Widget build(BuildContext context) {
-    return QrScan();
-  }
+    return QrScan();  }
 }
