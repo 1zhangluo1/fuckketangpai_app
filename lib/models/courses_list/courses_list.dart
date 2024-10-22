@@ -65,7 +65,8 @@ class Course {
       required this.identity,
       required this.isattest,
       required this.isTop,
-      required this.icontype});
+      required this.icontype,
+      });
 
   @JsonKey(name: "id", defaultValue: "")
   String id;
@@ -159,6 +160,8 @@ class Course {
 
   @JsonKey(name: "icontype", defaultValue: 0)
   int icontype;
+
+  bool teaching = false;
 
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);

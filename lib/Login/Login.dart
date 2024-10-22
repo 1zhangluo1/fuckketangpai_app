@@ -35,7 +35,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool isLogin = pref.getBool('login') ?? false;
     if (isLogin) {
-      Get.to(QrScan());
+      Get.to(SharedSignRoom());
     }
   }
 

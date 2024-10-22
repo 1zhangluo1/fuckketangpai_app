@@ -1,5 +1,6 @@
 import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/models/courses_list/courses_list.dart';
+import 'package:fuckketangpai/models/online_courses/online_courses.dart';
 
 class GetCourseInfo {
   final dio = AppNetwork.get().ketangpaiDio;
@@ -12,6 +13,12 @@ class GetCourseInfo {
     };
     final response = await dio.post('/CourseApi/semesterCourseList', data: requestBody);
     final coursesResponse = CoursesList.fromJson(response.data);
+    return coursesResponse;
+  }
+
+  Future<OnlineCourses> getOnlineCourses() async {
+    final response = await dio.post('/CourseApi/getCourseStateAll');
+    final coursesResponse = OnlineCourses.fromJson(response.data);
     return coursesResponse;
   }
 

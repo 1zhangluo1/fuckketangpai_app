@@ -13,6 +13,7 @@ Future<void> getUserInf() async {
   Dio dio = Dio();
   SharedPreferences pref = await SharedPreferences.getInstance();
   String token = await pref.getString('token') ?? '';
+  Global.myToken = token;
   dio.options.headers = {
     'token': token,
   };

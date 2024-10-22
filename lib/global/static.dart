@@ -40,8 +40,8 @@ class UserList  {
 
 
 class Global {
-  static List<String> tokens = [
-  ];
+  static List<String> tokens = [];
+  static String myToken = '';
   static String ketangpai_login_key = "ktp4567890123456"; // 16-byte key
   static String ketangpai_login_iv = "ktp4567890123456"; // 16-byte IV
   static Rx<User> user =

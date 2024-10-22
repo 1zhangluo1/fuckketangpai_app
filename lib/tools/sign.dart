@@ -4,7 +4,7 @@ import 'package:fuckketangpai/models/userInfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../selfwidgets/Toast.dart';
 
-Future<void> sign(String params) async {
+Future<bool> sign(String params,String token) async {
   String url = 'https://openapiv5.ketangpai.com/AttenceApi/AttenceResult';
   DateTime now = DateTime.now();
   int reqtimestamp = now.millisecondsSinceEpoch ~/ 1000;
@@ -26,8 +26,6 @@ Future<void> sign(String params) async {
   };
   try {
     final dio = dios.Dio();
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String token = await pref.getString('token') ?? '';
     dio.options.headers = {
       'Content-Type': 'application/json',
       'token': token,
@@ -38,25 +36,24 @@ Future<void> sign(String params) async {
     );
     print(response.toString());
     Toast(response.data['data']['info']);
-
-    Global.users.list[0] = Global.users.list[0]
-        .copyWith(signState: response.data['data']['state']==8? "成功":"失败(${response.data['data']['state']})");
-    ;
-   
-    for (int i = 0; i < Global.tokens.length; i++) {
-      dio.options.headers['token'] = Global.tokens[i];
-      response = await dio.post(
-        url,
-        data: body,
-      );
-      print(response.toString());
-      
-
-      Global.users.list[i+1] = Global.users.list[i+1]
-        .copyWith(signState: response.data['data']['state']==8? "成功":"失败(${response.data['data']['state']})");
-    ;
+    if (response.data['data']['state'] == 8) {
+      return true;
     }
+    return false;
+    Global.users.list[0] = Global.users.list[0].copyWith(signState: response.data['data']['state']==8? "成功":"失败(${response.data['data']['state']})");;
+    // for (int i = 0; i < Global.tokens.length; i++) {
+    //   dio.options.headers['token'] = Global.tokens[i];
+    //   response = await dio.post(
+    //     url,
+    //     data: body,
+    //   );
+    //   print(response.toString());
+    //   Global.users.list[i+1] = Global.users.list[i+1]
+    //     .copyWith(signState: response.data['data']['state']==8? "成功":"失败(${response.data['data']['info'].toString().substring(0,4)})");
+    // ;
+    // }
   } on Exception catch (e) {
     Toast(e.toString());
+    return false;
   }
 }

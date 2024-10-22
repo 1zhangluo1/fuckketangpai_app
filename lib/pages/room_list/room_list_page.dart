@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuckketangpai/models/courses_list/courses_list.dart';
 import 'package:fuckketangpai/pages/room_list/room_list_controller.dart';
 import 'package:get/get.dart';
 
@@ -16,22 +17,35 @@ class _RoomListPageState extends State<RoomListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-          () => ListView.separated(
-            itemBuilder: (context, index) {
-          return ListTile(
-              title: Text(roomListController.courses[index].coursename),
+      appBar: AppBar(
+        title: Text('我的房间列表'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Obx(
+          () => RefreshIndicator(
+            onRefresh: () => roomListController.initRoom(),
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                final course = roomListController.courses[index];
+            return ListTile(
+              onTap: () => {},
+              leading: Icon(Icons.live_tv_outlined,color: course.teaching ? Colors.green : Colors.grey,),
+              title: Text(course.coursename,overflow: TextOverflow.ellipsis,),
+              subtitle: Text(course.teaching ? '正在上课' : '未上课',style: TextStyle(fontSize: 12),),
               trailing: Icon(Icons.arrow_forward_ios_outlined),
-          );
-        },
-          itemCount: roomListController.courses.length,
-          separatorBuilder: (context,index) {
-              return Container(
-                color: Colors.grey,
-                width: double.infinity,
-                height: 0.5,
-              );
-          },
+            );
+                    },
+            itemCount: roomListController.courses.length,
+            separatorBuilder: (context,index) {
+                return Container(
+                  color: Colors.grey,
+                  width: double.infinity,
+                  height: 0.5,
+                );
+            },
+                    ),
+          ),
         ),
       ),
     );

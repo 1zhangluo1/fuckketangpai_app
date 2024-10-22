@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/profiles.dart';
 import 'package:fuckketangpai/tools/sign.dart';
 import 'package:get/get.dart';
@@ -10,14 +11,14 @@ import 'package:web_socket_channel/io.dart';
 import 'scan.dart';
 import '../selfwidgets/Toast.dart';
 
-class QrScan extends StatefulWidget {
-  const QrScan({super.key});
+class SharedSignRoom extends StatefulWidget {
+  const SharedSignRoom({super.key});
 
   @override
-  _QrScanState createState() => _QrScanState();
+  _SharedSignRoomState createState() => _SharedSignRoomState();
 }
 
-class _QrScanState extends State<QrScan> {
+class _SharedSignRoomState extends State<SharedSignRoom> {
   RxString text = "扫码结果".obs;
   IOWebSocketChannel? channel;
   TextEditingController controller = TextEditingController();
@@ -32,7 +33,6 @@ class _QrScanState extends State<QrScan> {
   @override
   void dispose() {
     channel == null ? () => null : channel!.sink.close();
-    print(123456789200000);
     super.dispose();
   }
 
@@ -68,6 +68,10 @@ class _QrScanState extends State<QrScan> {
                         '连接状态: ${connectionState.value ? '正常连接' : '未连接'}',
                         style: TextStyle(fontSize: 20),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.refresh_outlined))
                     ],
                   ),
                 ),
@@ -90,9 +94,9 @@ class _QrScanState extends State<QrScan> {
                 child: ElevatedButton(
                   onPressed: () async {
                     BarcodeCapture result = await Get.to(Scan());
-                    senMessage(result.barcodes.first.rawValue.toString());
+                    senMessage(message: result.barcodes.first.rawValue.toString(),isSign: true);
                     text.value = result.barcodes.first.rawValue.toString();
-                    sign(result.barcodes.first.rawValue.toString());
+                    sign(result.barcodes.first.rawValue.toString(),Global.myToken);
                   },
                   child: Text("点击扫码"),
                 ),
@@ -131,7 +135,7 @@ class _QrScanState extends State<QrScan> {
                     ),
                     ElevatedButton(
                         onPressed: () => controller.value.text.isNotEmpty
-                            ? senMessage(controller.value.text)
+                            ? senMessage(message: controller.value.text, isSign: false)
                             : Toast('不能为空'),
                         child: Text('发送消息')),
                   ],
@@ -146,27 +150,27 @@ class _QrScanState extends State<QrScan> {
 
   void connectToWebSocket() {
     try {
-      channel = IOWebSocketChannel.connect('ws://172.16.0.108:9745/connection');
+      channel = IOWebSocketChannel.connect('ws://172.16.0.111:9745/connection');
       channel?.stream.listen(
         (event) {
-          connectionState.value = true;
-          Map<String, dynamic> result = jsonDecode(event);
+          Map<dynamic, dynamic> result = jsonDecode(event);
           print(result['content'] + '\n' + result['type']);
           if (result['type'] == 'sign') {
-            sign(result['content']);
+            sign(result['content'],Global.myToken);
             Toast(result['content']);
           } else if (result['type'] == 'onlineNums') {
             userNumbers.value = int.parse(result['content']);
-          } else if (event == '1') {
+          } else if (result['type'] == "judge_status" && result['content'] == '1') {
             connectionState.value = true;
-          } else {
-            Toast(result.toString());
+          } else if (result['type'] == 'chat') {
+            Toast(result['content']);
           }
         },
         onDone: () {
           if (channel?.closeCode != null) {
             print('WebSocket closed with code: ${channel?.closeCode}');
             connectionState.value = false;
+            userNumbers.value = 0;
             reconnect();
           } else {
             print('WebSocket closed');
@@ -175,6 +179,7 @@ class _QrScanState extends State<QrScan> {
         onError: (error) {
           Toast('连接错误' + error);
           print('WebSocket error: $error');
+          userNumbers.value = 0;
           connectionState.value = false;
           reconnect();
         },
@@ -184,13 +189,22 @@ class _QrScanState extends State<QrScan> {
     }
   }
 
-  void senMessage(String message) {
-    channel?.sink.add(message);
+  void senMessage({required String message,required bool isSign}) {
+    if (isSign) {
+      Map<String,String> mapMessage= {
+        'content': message,
+        'type': 'sign',
+      };
+      final jsonMessage = jsonEncode(mapMessage);
+      channel?.sink.add(jsonMessage);
+    } else {
+      channel?.sink.add(message);
+    }
   }
 
   void reconnect() {
     Future.delayed(Duration(seconds: 5), () {
-      channel = IOWebSocketChannel.connect('ws://172.16.0.108:9745/connection');
+      channel = IOWebSocketChannel.connect('ws://172.16.0.111:9745/connection');
       connectionState.value = true;
     });
   }

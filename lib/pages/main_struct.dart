@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/Detail_Profile.dart';
 import 'package:fuckketangpai/pages/Drawer_menu.dart';
-import 'package:fuckketangpai/pages/Rooms_list.dart';
-import 'package:fuckketangpai/pages/My_classes.dart';
+import 'package:fuckketangpai/pages/Sign_Room.dart';
+import 'package:fuckketangpai/pages/private_sign_room/private_sign_page.dart';
 import 'package:fuckketangpai/pages/room_list/room_list_page.dart';
 import 'package:fuckketangpai/pages/upload_suggest.dart';
 import 'package:get/get.dart';
@@ -79,7 +79,8 @@ class _MainStructState extends State<MainStruct> {
         controller: pageController,
         children: [
           DetailProfileInfo(),
-          Shared_sign_room(),
+          SharedSignRoom(),
+          PrivateSignPage(),
           RoomListPage(),
           SendSuggestions(),
         ],

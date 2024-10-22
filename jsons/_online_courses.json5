@@ -1,0 +1,23 @@
+{
+  "status": 1,
+  "code": 10000,
+  "message": "访问成功",
+  "data": {
+    "list": [
+      {
+        "id": "MDAwMDAwMDAwMLOGz5WGucmyhaVyoQ",
+        "coursename": "熟悉  互动课堂",
+        "classname": null,
+        "uid": "MDAwMDAwMDAwMLOGqduG381phM6YoQ",
+        "is_meeting": 0,
+        "type": "3",
+        "role": 0,
+        "username": "李玉洁",
+        "minpic": "//assets.ketangpai.com/theme/min/01.jpg"
+      }
+    ],
+    "total": 1,
+    "banner": [],
+    "notReadNotifyLists": []
+  }
+}

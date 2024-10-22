@@ -111,10 +111,22 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 height: 15,
               ),
               ListTile(
+                leading: Icon(Icons.house_outlined),
+                title: Text('本地房间签到'),
+                onTap: () {
+                  widget.pageController.jumpToPage(2);
+                  Scaffold.of(context).closeDrawer();
+                  print('本地房间签到');
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ListTile(
                 leading: Icon(Icons.class_outlined),
                 title: Text('我的课程'),
                 onTap: () {
-                  widget.pageController.jumpToPage(2);
+                  widget.pageController.jumpToPage(3);
                   Scaffold.of(context).closeDrawer();
                   print('我的课程列表');
                 },
@@ -126,7 +138,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 leading: Icon(Icons.email_outlined),
                 title: Text('意见反馈'),
                 onTap: () {
-                  widget.pageController.jumpToPage(3);
+                  widget.pageController.jumpToPage(4);
                   Scaffold.of(context).closeDrawer();
                   print('意见反馈');
                 },
