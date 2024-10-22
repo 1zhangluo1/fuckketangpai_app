@@ -21,7 +21,7 @@ class CoursesList {
   String message;
 
   @JsonKey(name: "data", defaultValue: [])
-  List<Data> data;
+  List<Course> data;
 
 
   factory CoursesList.fromJson(Map<String, dynamic> json) => _$CoursesListFromJson(json);
@@ -32,9 +32,9 @@ class CoursesList {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Data {
+class Course {
 
-  Data(
+  Course(
       {required this.id,
       required this.uid,
       required this.issys,
@@ -161,11 +161,11 @@ class Data {
   int icontype;
 
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
   
-  Map<String, dynamic> toJson() => _$DataToJson(this);
+  Map<String, dynamic> toJson() => _$CourseToJson(this);
   
-  factory Data.emptyInstance() => Data(id: "", uid: "", issys: "", coursename: "", code: "", stopcode: 0, semester: "", term: "", isrecruit: "", teachtype: "", studytime: "", classending: "", canvisit: "", username: "", avatar: "", minpic: "", middlepic: "", studentbgpic: "", studentminpic: "", teacherbgpic: "", teacherminpic: "", total: "", role: 0, neednatureclass: "", needgrade: "", needentrance: "", identity: "", isattest: false, isTop: 0, icontype: 0);
+  factory Course.emptyInstance() => Course(id: "", uid: "", issys: "", coursename: "", code: "", stopcode: 0, semester: "", term: "", isrecruit: "", teachtype: "", studytime: "", classending: "", canvisit: "", username: "", avatar: "", minpic: "", middlepic: "", studentbgpic: "", studentminpic: "", teacherbgpic: "", teacherminpic: "", total: "", role: 0, neednatureclass: "", needgrade: "", needentrance: "", identity: "", isattest: false, isTop: 0, icontype: 0);
 }
 
 

@@ -11,7 +11,7 @@ CoursesList _$CoursesListFromJson(Map<String, dynamic> json) => CoursesList(
       code: (json['code'] as num?)?.toInt() ?? 0,
       message: json['message'] as String? ?? '',
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
     );
@@ -24,7 +24,7 @@ Map<String, dynamic> _$CoursesListToJson(CoursesList instance) =>
       'data': instance.data.map((e) => e.toJson()).toList(),
     };
 
-Data _$DataFromJson(Map<String, dynamic> json) => Data(
+Course _$CourseFromJson(Map<String, dynamic> json) => Course(
       id: json['id'] as String? ?? '',
       uid: json['uid'] as String? ?? '',
       issys: json['issys'] as String? ?? '',
@@ -58,7 +58,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       icontype: (json['icontype'] as num?)?.toInt() ?? 0,
     );
 
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'id': instance.id,
       'uid': instance.uid,
       'issys': instance.issys,

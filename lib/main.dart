@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Global.init();
-
   runApp(MyApp());
 }
 

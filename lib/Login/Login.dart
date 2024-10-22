@@ -25,6 +25,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   GlobalKey phone_login_key = GlobalKey<FormState>();
   GlobalKey validLogin = GlobalKey<FormState>();
+  var isLogin = false.obs;
   TextEditingController phoneController = TextEditingController();
   TextEditingController validController = TextEditingController();
   TextEditingController accountController = TextEditingController();
@@ -135,11 +136,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       surfaceTintColor: MaterialStateProperty.all<Color>(
                           Colors.lightBlueAccent),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      isLogin.value = true;
                       int currentStatus = _tabController.index;
                       if (currentStatus == 0 &&
                           (validLogin.currentState as FormState).validate()) {
-                        Login(
+                        await Login(
                             accountController.value.text,
                             passwordController.value.text,
                             '',
@@ -147,17 +149,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       } else if (currentStatus == 1 &&
                           (phone_login_key.currentState as FormState)
                               .validate()) {
-                        Login(
+                        await Login(
                             phoneController.value.text,
                             '',
                             validController.value.text,
                             'https://openapiv5.ketangpai.com//UserApi/loginByMobile');
                       }
+                      isLogin.value = false;
                     },
-                    child: Text(
-                      '登录',
-                      textScaleFactor: 1.4,
-                      style: TextStyle(color: Colors.white),
+                    child: Obx(
+                      () => Text(
+                        isLogin.value ? '登录中...' : '登录',
+                        textScaleFactor: 1.4,
+                        style: TextStyle(color: Colors.white,letterSpacing: 2),
+                      ),
                     ),
                   )),
             ),

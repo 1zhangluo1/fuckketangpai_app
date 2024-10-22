@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/models/userInfo.dart';
 import 'package:get/get.dart';
 import 'package:pointycastle/export.dart';
@@ -52,8 +53,9 @@ class Global {
   static Future init() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     login = await pref.getBool('login') ?? false;
+    await AppNetwork.initNetwork();
+    print(AppNetwork.get().ketangpaiDio.options.baseUrl);
     if (login) {
-      
        getUserInf();
     }
   }

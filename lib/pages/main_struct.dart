@@ -4,6 +4,7 @@ import 'package:fuckketangpai/pages/Detail_Profile.dart';
 import 'package:fuckketangpai/pages/Drawer_menu.dart';
 import 'package:fuckketangpai/pages/Rooms_list.dart';
 import 'package:fuckketangpai/pages/My_classes.dart';
+import 'package:fuckketangpai/pages/room_list/room_list_page.dart';
 import 'package:fuckketangpai/pages/upload_suggest.dart';
 import 'package:get/get.dart';
 
@@ -54,9 +55,9 @@ class _MainStructState extends State<MainStruct> {
                 () => ClipOval(
                   child: Image.network(
                     Global.user.value.headImageuri,
-                    fit: BoxFit.cover,
-                    width: 100.0, // 容器宽度
-                    height: 100.0, // 容器高度
+                    fit: BoxFit.contain,
+                    width: 100.0,
+                    height: 100.0,
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                       return ClipOval(
@@ -79,7 +80,7 @@ class _MainStructState extends State<MainStruct> {
         children: [
           DetailProfileInfo(),
           Shared_sign_room(),
-          MyClasses(),
+          RoomListPage(),
           SendSuggestions(),
         ],
       ),
