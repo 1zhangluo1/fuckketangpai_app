@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
-import 'package:fuckketangpai/Login/password_login.dart';
-import 'package:fuckketangpai/Login/phone_login.dart';
 import 'package:fuckketangpai/gen/assets.gen.dart';
 import 'package:fuckketangpai/global/static.dart';
+import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/pages/Login/password_login.dart';
+import 'package:fuckketangpai/pages/Login/phone_login.dart';
 import 'package:fuckketangpai/pages/Sign_Room.dart';
 import 'package:fuckketangpai/pages/main_struct.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/service/add_user_to_json.dart';
 import 'package:fuckketangpai/tools/encrypt_loginpass.dart';
-import 'package:fuckketangpai/tools/randoms_tring.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-import '../Internet/getUserInfo.dart';
+import '../../Internet/getUserInfo.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -187,40 +188,36 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       'remember': '0',
       'code': verifyCode,
     };
-    Map<String, dynamic> saveBody = {
-      'name': '',
-      'student_id': '',
-      'school': '',
-      'phone': '',
-    };
+    // Map<String, dynamic> saveBody = {
+    //   'name': '',
+    //   'student_id': '',
+    //   'school': '',
+    //   'phone': '',
+    // };
     try {
       dios.Dio dio = dios.Dio();
       dios.Response response = await dio.post(url, data: loginBody);
       if (response.data['status'] == 1) {
+        final token = response.data['data']['token'];
         SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('token', response.data['data']['token']);
+        pref.setString('token', token);
         pref.setBool('login', true);
-
-        await getUserInf();
-       
-        Map<String, dynamic> saveBody = {
-          'name': Global.user.value.name,
-          'student_id': Global.user.value.id,
-          'school': Global.user.value.school,
-          'phone': Global.user.value.phone,
-        };
-        
+        Global.myToken = token;
+        await initUserInf(token);
+        Toast('登录成功');
+        final userInfo = Global.user.value;
+        final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token);
+        int result = await saveToJson(user);
+        if (result == 0) {
+          Toast('成功添加新用户');
+        }
+        // Map<String, dynamic> saveBody = {
+        //   'name': Global.user.value.name,
+        //   'student_id': Global.user.value.id,
+        //   'school': Global.user.value.school,
+        //   'phone': Global.user.value.phone,
+        // };
         Get.offAll(MainStruct());
-        //   dios.Response saveResult = await dio.post(
-        //       'http://172.16.0.108:9745/fuckketangpai/add_new_user',
-        //       data: saveBody);
-        //   if (saveResult.data['code'] == 200 || saveResult.data['code'] == 201) {
-        //     Toast('登录成功');
-        //     Get.offAll(MainStruct());
-        //   } else {
-        //     print(saveResult.data.toString());
-        //     Toast('登录失败');
-        //   }
       } else {
         print(response.data.toString());
         Toast('登录失败');

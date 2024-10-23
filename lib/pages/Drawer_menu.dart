@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fuckketangpai/Login/Login.dart';
 import 'package:fuckketangpai/models/userInfo.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/static.dart';
+import 'Login/login.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu(this.pageController);
@@ -150,7 +150,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 leading: Icon(Icons.exit_to_app_outlined),
                 title: Text('退出登录'),
                 onTap: () {
-                  exitLogin();
+                  exitLogin(context);
                 },
               ),
               SizedBox(
@@ -161,17 +161,38 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 
-  Future<void> exitLogin() async {
-    Get.offAll(Login());
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      await pref.clear();
-      Global.user.value = User('', '', '', '', '', '', '','','','');
-      Global.login = false;
-      Global.users.list.clear();
-      Toast('退出成功');
-    } on Exception catch (e) {
-      Toast('退出遇到了一点意外:' + e.toString());
+  Future<void> exitLogin(BuildContext context) async {
+     bool? verify = await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('提示'),
+            content: Text('你确定退出登录吗',style: TextStyle(fontSize: 18),),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context,false),
+                  child: Text('取消')
+              ),
+              TextButton(
+                  onPressed: () => Navigator.pop(context,true),
+                  child: Text('确定')
+              ),
+            ],
+          );
+        }
+    );
+    if (verify ?? false) {
+      try {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        await pref.clear();
+        Global.user.value = User('', '', '', '', '', '', '','','','');
+        Global.login = false;
+        Global.users.list.clear();
+        Get.offAll(Login());
+        Toast('退出成功');
+      } on Exception catch (e) {
+        Toast('退出遇到了一点意外:' + e.toString());
+      }
     }
   }
 

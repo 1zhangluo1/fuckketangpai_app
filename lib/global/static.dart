@@ -54,9 +54,9 @@ class Global {
     SharedPreferences pref = await SharedPreferences.getInstance();
     login = await pref.getBool('login') ?? false;
     await AppNetwork.initNetwork();
-    print(AppNetwork.get().ketangpaiDio.options.baseUrl);
     if (login) {
-       getUserInf();
+      myToken = await pref.getString('token') ?? '';
+      initUserInf(myToken);
     }
   }
 }

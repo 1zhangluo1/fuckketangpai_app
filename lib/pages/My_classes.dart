@@ -14,20 +14,8 @@ class _CoursePageState extends State<MyClasses> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserCoursesByToken(Global.tokens[0]);
-    // Global.semesters.list.addAll([
-    //   Semester("2024-2025 (第一学期)", [
-    //     Course("形策2（计算机学院）", "2322803-2322804", "EW2FVC", 236),
-    //   ]),
-    //   Semester("2023-2024 (第二学期)", [
-    //     Course("形策2（计算机学院）", "2322803-2322804", "EW2FVC", 236),
-    //     Course("中国近现代史纲要", "2322770", "YX3VGE", 116),
-    //     Course("大学物理B", "2323155", "ULRG9L", 88),
-    //     Course("面向对象程序设计-实验", "2023级软件工程专业", "MT7PW5", 67),
-    //   ]),
-    // ]);
   }
 
   @override

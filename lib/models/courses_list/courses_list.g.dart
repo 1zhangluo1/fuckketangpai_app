@@ -56,7 +56,7 @@ Course _$CourseFromJson(Map<String, dynamic> json) => Course(
       isattest: json['isattest'] as bool? ?? false,
       isTop: (json['isTop'] as num?)?.toInt() ?? 0,
       icontype: (json['icontype'] as num?)?.toInt() ?? 0,
-    )..teaching = json['teaching'] as bool;
+    );
 
 Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'id': instance.id,
@@ -90,5 +90,4 @@ Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'isattest': instance.isattest,
       'isTop': instance.isTop,
       'icontype': instance.icontype,
-      'teaching': instance.teaching,
     };

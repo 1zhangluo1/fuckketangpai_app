@@ -45,6 +45,8 @@ dependencies:
   pointycastle: ^3.9.1
   shared_preferences: ^2.2.3
   web_socket_channel: ^2.4.5
+  path_provider: ^2.1.4
+  permission_handler: ^11.3.1
 
 
 dev_dependencies:
@@ -73,7 +75,6 @@ flutter:
   uses-material-design: true
   assets:
     - images/
-    - data/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
