@@ -5,6 +5,7 @@ import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/selfwidgets/loading_dialog.dart';
 import 'package:get/get.dart';
 import '../../Internet/getUserInfo.dart';
 import '../../global/static.dart';
@@ -54,10 +55,12 @@ class AddUserController extends GetxController {
     }
   }
 
-  Future addUserByAccount() async {
+  Future addUserByAccount(BuildContext context) async {
+    LoadingDialog.showLoadingDialog(context: context, hintText: '添加中...');
     final user = await getUserInfo(accountController.text.trim(), passwordController.text.trim(), validCodeController.text.trim(), 'https://openapiv5.ketangpai.com//UserApi/login');
     if (user != null) {
       int result = await saveToJson(user);
+      LoadingDialog.hideDialog(context: context);
       if (result == 1) {
         Toast('添加成功');
       } else if (result == 0) {
@@ -65,14 +68,18 @@ class AddUserController extends GetxController {
       } else if (result == -1) {
         Toast('添加失败');
       }
+    } else {
+      LoadingDialog.hideDialog(context: context);
+      Toast('添加失败');
     }
   }
 
-  Future addUserByPhone() async {
+  Future addUserByPhone(BuildContext context) async {
+    LoadingDialog.showLoadingDialog(context: context, hintText: '添加中...');
     final user = await getUserInfo(phoneController.text.trim(), '', validCodeController.text.trim(), 'https://openapiv5.ketangpai.com//UserApi/loginByMobile');
-    print(user!.name);
     if (user != null) {
       int result = await saveToJson(user);
+      LoadingDialog.hideDialog(context: context);
       if (result == 1) {
         Toast('添加成功');
       } else if (result == 0) {
@@ -80,6 +87,9 @@ class AddUserController extends GetxController {
       } else if (result == -1) {
         Toast('添加失败');
       }
+    } else {
+      LoadingDialog.hideDialog(context: context);
+      Toast('添加失败');
     }
   }
 

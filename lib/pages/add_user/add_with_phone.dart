@@ -100,7 +100,7 @@ class _AddWithPhoneState extends State<AddWithPhone> {
               child: ElevatedButton(
                   onPressed: () {
                     if ((c.phoneLoginKey.currentState as FormState).validate()) {
-                      c.addUserByPhone();
+                      c.addUserByPhone(context);
                     }
                   },
                   child: Text('添加用户',style: TextStyle(fontSize: 16,letterSpacing: 5),)

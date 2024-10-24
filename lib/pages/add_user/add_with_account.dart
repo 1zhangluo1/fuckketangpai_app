@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/pages/add_user/add_user_controller.dart';
-import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:get/get.dart';
 
 class AddWithAccount extends StatelessWidget {
@@ -67,7 +66,7 @@ class AddWithAccount extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {
                     if ((c.accountLoginKey.currentState as FormState).validate()) {
-                      c.addUserByAccount();
+                      c.addUserByAccount(context);
                     }
                   },
                   child: Text('添加用户',style: TextStyle(fontSize: 16,letterSpacing: 5),)

@@ -9,16 +9,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $DataGen {
-  const $DataGen();
-
-  /// File path: data/users.json
-  String get users => 'data/users.json';
-
-  /// List of all assets
-  List<String> get values => [users];
-}
-
 class $ImagesGen {
   const $ImagesGen();
 
@@ -33,7 +23,6 @@ class $ImagesGen {
 class Assets {
   Assets._();
 
-  static const $DataGen data = $DataGen();
   static const $ImagesGen images = $ImagesGen();
 }
 

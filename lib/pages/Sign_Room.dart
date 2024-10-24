@@ -150,7 +150,7 @@ class _SharedSignRoomState extends State<SharedSignRoom> {
 
   void connectToWebSocket() {
     try {
-      channel = IOWebSocketChannel.connect('ws://172.16.0.111:9745/connection');
+      channel = IOWebSocketChannel.connect('ws://172.16.0.108:9745/connection');
       channel?.stream.listen(
         (event) {
           Map<dynamic, dynamic> result = jsonDecode(event);
