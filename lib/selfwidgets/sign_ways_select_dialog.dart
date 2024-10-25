@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/pages/sign/number_sign.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../pages/scan.dart';
+import '../pages/sign/scan.dart';
 
 class SignWaysSelectDialog extends StatelessWidget {
   const SignWaysSelectDialog({super.key});
@@ -36,7 +37,7 @@ class SignWaysSelectDialog extends StatelessWidget {
         String url = result.barcodes.first.rawValue.toString();
         Navigator.of(context).pop(url);
       case 2:
-        Navigator.of(context).pop('数字签到');
+        Get.to(NumberSign());
       case 3:
         Navigator.of(context).pop('GPS签到');
     }

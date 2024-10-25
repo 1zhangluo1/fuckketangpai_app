@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:web_socket_channel/io.dart';
-import 'scan.dart';
+import 'sign/scan.dart';
 import '../selfwidgets/Toast.dart';
 
 class SharedSignRoom extends StatefulWidget {

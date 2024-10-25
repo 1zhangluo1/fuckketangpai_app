@@ -37,13 +37,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   final signValue = await c.showSignWay(context);
-                  for (var user in c.users) {
-                    bool result = await sign(signValue, user.token);
-                    print("签到结果：" + result.toString());
-                    user.signStatus = result;
-                  }
-                  c.users.forEach((e)=>print("签到结果后的状态：" + e.signStatus.toString()));
-                  Get.forceAppUpdate();
+                  await c.signSelectablePeople(signValue);
                 },
                 child: Text('签到'),
               ),
@@ -78,9 +72,22 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
   /// 生成 ExpansionTile 组件 , children 是 List<Widget> 组件
   Widget _generateExpansionTileWidget(Users user) {
     return ExpansionTile(
-      title: Text(
-        user.name,
-        style: TextStyle(color: Colors.black54, fontSize: 20),
+      title: Row(
+        children: [
+          Checkbox(
+                value: user.isCheck,
+                onChanged: (result) {
+                  setState(() {
+                    user.isCheck = result ?? false;
+                  });
+                }
+            ),
+          SizedBox(width: 10,),
+          Text(
+            user.name,
+            style: TextStyle(color: Colors.black54, fontSize: 20),
+          ),
+        ],
       ),
       children: [_generateWidget(user)],
     );

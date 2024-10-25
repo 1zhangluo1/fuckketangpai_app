@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/pages/shared_sign_room/shared_room_controller.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import '../scan.dart';
+import '../sign/scan.dart';
 
 class SharedRoomPage extends StatefulWidget {
   const SharedRoomPage({super.key});

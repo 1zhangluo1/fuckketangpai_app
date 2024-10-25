@@ -60,6 +60,9 @@ class Users {
   @JsonKey(name: "token", defaultValue: "")
   String token;
 
+  @JsonKey(ignore: true)
+  bool isCheck = false;
+
 
   factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
   

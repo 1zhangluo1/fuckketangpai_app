@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuckketangpai/pages/scan.dart';
+import 'package:fuckketangpai/pages/sign/scan.dart';
 import 'package:get/get.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/Internet/getUserInfo.dart';

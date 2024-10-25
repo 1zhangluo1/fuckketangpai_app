@@ -3,7 +3,7 @@ import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/getUserInfos/getUserInfos.dart';
 import 'package:fuckketangpai/models/userInfo.dart';
-import 'package:fuckketangpai/pages/scan.dart';
+import 'package:fuckketangpai/pages/sign/scan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> initUserInf(String token) async {
