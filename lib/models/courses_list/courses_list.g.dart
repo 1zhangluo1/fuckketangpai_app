@@ -90,5 +90,4 @@ Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'isattest': instance.isattest,
       'isTop': instance.isTop,
       'icontype': instance.icontype,
-      'teaching': instance.teaching,
     };

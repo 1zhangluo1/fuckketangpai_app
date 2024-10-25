@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/models/online_courses/online_courses.dart';
 import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
 import 'package:fuckketangpai/pages/private_sign_room/private_sign_controller.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
@@ -25,40 +26,126 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
       floatingActionButton: FloatingActionButton(
           shape: CircleBorder(),
           child: Icon(Icons.add),
-          onPressed: () => Get.to(AddUserPage())
-      ),
+          onPressed: () => Get.to(AddUserPage())),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () async {
-                  final signValue = await c.showSignWay(context);
-                  await c.signSelectablePeople(signValue);
-                },
-                child: Text('签到'),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Expanded(
-              child: Obx(
-                () => RefreshIndicator(
-                  onRefresh: () => c.refreshData(),
-                  child: ListView(
-                    children: _buildList(c.users),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            c.refreshUserData();
+            c.refreshCoursesData();
+          },
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final signValue = await c.showSignWay(context);
+                      if (signValue != '') {
+                        await c.signSelectablePeople(signValue);
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.qr_code_scanner_outlined),
+                          SizedBox(width: 8,),
+                          Text('扫码签到',style: TextStyle(letterSpacing: 2),),
+                    ]),
                   ),
                 ),
               ),
-            ),
-          ],
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 16,
+                ),
+              ),
+              SliverToBoxAdapter(child: Text('正在签到课程：',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 5,
+                ),
+              ),
+              Obx(
+                  () => SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                          (_,index) => _generateCourseExpansionTileWidget(c.signingCourses[index]),
+                      childCount: c.signingCourses.length
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(child: Text('本地签到用户：',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 5,
+                ),
+              ),
+              Obx(
+                  () => SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      childCount: c.users.length,
+                          (_,index) => _buildList(c.users)[index]
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget _generateCourseExpansionTileWidget(CourseList course) {
+    return ExpansionTile(
+      title: Row(
+        children: [
+          Checkbox(
+              value: course.isChecked,
+              onChanged: (result) {
+                setState(() {
+                  course.isChecked = result ?? false;
+                });
+              }),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            course.coursename,
+            style: TextStyle(color: Colors.black54, fontSize: 20),
+          ),
+        ],
+      ),
+      children: [_generateCourseWidget(course)],
+    );
+  }
+
+  Widget _generateCourseWidget(CourseList course) {
+    final textStyle = TextStyle(fontSize: 16);
+    return FractionallySizedBox(
+        widthFactor: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '老师',
+                    style: textStyle,
+                  ),
+                  Text(
+                    course.username,
+                    style: textStyle,
+                  )
+                ],
+              ),
+                ],
+              ),
+          ),
+        );
   }
 
   List<Widget> _buildList(List<Users> users) {
@@ -75,14 +162,15 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
       title: Row(
         children: [
           Checkbox(
-                value: user.isCheck,
-                onChanged: (result) {
-                  setState(() {
-                    user.isCheck = result ?? false;
-                  });
-                }
-            ),
-          SizedBox(width: 10,),
+              value: user.isCheck,
+              onChanged: (result) {
+                setState(() {
+                  user.isCheck = result ?? false;
+                });
+              }),
+          SizedBox(
+            width: 10,
+          ),
           Text(
             user.name,
             style: TextStyle(color: Colors.black54, fontSize: 20),
@@ -129,31 +217,27 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                     '电话号码',
                     style: textStyle,
                   ),
-                  Text.rich(
+                  Text.rich(TextSpan(children: [
                     TextSpan(
-                      children: [
-                        TextSpan(
-                          text: user.phone.toString(),
-                          style: TextStyle(
-                              fontSize: 16,
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 1.5,
-                              decorationColor: Colors.lightBlue,
-                              color: Colors.lightBlue
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
-                              final confirm = await showDialog<bool>(context: context, builder: (context) => ConfirmDialog());
-                              if (confirm != null && confirm) {
-                                launch("tel:${user.phone.toString()}");
-                              } else if (confirm == null){
-                                Toast('错误');
-                              }
+                        text: user.phone.toString(),
+                        style: TextStyle(
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 1.5,
+                            decorationColor: Colors.lightBlue,
+                            color: Colors.lightBlue),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            final confirm = await showDialog<bool>(
+                                context: context,
+                                builder: (context) => ConfirmDialog());
+                            if (confirm != null && confirm) {
+                              launch("tel:${user.phone.toString()}");
+                            } else if (confirm == null) {
+                              Toast('错误');
                             }
-                        )
-                      ]
-                    )
-                  ),
+                          })
+                  ])),
                 ],
               ),
             ],

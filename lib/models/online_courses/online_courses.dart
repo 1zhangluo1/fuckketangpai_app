@@ -72,6 +72,9 @@ class CourseList {
   @JsonKey(name: "minpic", defaultValue: "")
   String minpic;
 
+  @JsonKey(ignore: true)
+  bool isChecked = false;
+
 
   factory CourseList.fromJson(Map<String, dynamic> json) => _$CourseListFromJson(json);
 

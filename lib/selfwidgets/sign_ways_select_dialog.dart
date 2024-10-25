@@ -35,16 +35,22 @@ class SignWaysSelectDialog extends StatelessWidget {
       case 1:
         BarcodeCapture result = await Get.to(Scan());
         String url = result.barcodes.first.rawValue.toString();
-        Navigator.of(context).pop(url);
+        Map<String,dynamic> signMessage = {
+          'type': "scan",
+          'value': url,
+        };
+        Navigator.of(context).pop(signMessage);
       case 2:
         Get.to(NumberSign());
       case 3:
         Navigator.of(context).pop('GPS签到');
+      default:
+        Map<String,dynamic> signMessage = {
+          'type': "null",
+          'value': '',
+        };
+        Navigator.of(context).pop(signMessage);
     }
-  }
-
-  signAllPeople(List<Users> users)  {
-    users.forEach((user) {});
   }
 
 }

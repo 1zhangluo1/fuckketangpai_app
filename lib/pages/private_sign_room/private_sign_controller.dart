@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
-import 'package:fuckketangpai/selfwidgets/sign_ways_select_dialog.dart';
+import 'package:fuckketangpai/models/online_courses/online_courses.dart';
+import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/service/get_course.dart';
 import 'package:fuckketangpai/service/get_user_by_json.dart';
 import 'package:get/get.dart';
-
+import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../tools/sign.dart';
+import '../sign/scan.dart';
 
 class PrivateSignController extends GetxController {
 
@@ -14,22 +17,28 @@ class PrivateSignController extends GetxController {
 
   Future<List<Users>?> get getLocalUsersData async => await getLocalUsersDataByJson();
 
-  Future refreshData() async {
+  RxList<CourseList> signingCourses = <CourseList>[].obs;
+
+  Future refreshUserData() async {
     final userList = await getLocalUsersData;
     if (userList != null) {
       users.clear();
       users.addAll(userList);
+      users.firstWhere((e) => e.uid == Global.user.value.uid).isCheck = true;
     }
   }
 
+  Future refreshCoursesData() async {
+    final signingCourses = await GetCourseInfo.get().getSigningCourses();
+    this.signingCourses.clear();
+    this.signingCourses.addAll(signingCourses);
+    this.signingCourses.forEach((e)=>print(e.coursename));
+  }
+
   Future<String> showSignWay(BuildContext context) async {
-    final signValue = await showDialog<String>(
-        context: context,
-        builder: (context) {
-          return SignWaysSelectDialog();
-        }
-    );
-    return signValue ?? '';
+    BarcodeCapture result = await Get.to(Scan());
+    String url = result.barcodes.first.rawValue.toString();
+    return url;
   }
 
   Future signSelectablePeople(String url) async {
@@ -46,11 +55,8 @@ class PrivateSignController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    final userList = await getLocalUsersData;
-    if (userList != null) {
-      users.addAll(userList);
-    }
-    users.firstWhere((e) => e.uid == Global.user.value.uid).isCheck = true;
+    refreshUserData();
+    refreshCoursesData();
   }
 
 }
