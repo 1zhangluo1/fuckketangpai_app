@@ -27,12 +27,17 @@ class LocalUsers {
 class Users {
 
   Users(
-      {required this.name,
+      {required this.uid,
+      required this.name,
       required this.account,
       required this.password,
+      required this.phone,
       required this.signStatus,
       required this.isCourse,
       required this.token});
+
+  @JsonKey(name: "uid", defaultValue: "")
+  String uid;
 
   @JsonKey(name: "name", defaultValue: "")
   String name;
@@ -42,6 +47,9 @@ class Users {
 
   @JsonKey(name: "password", defaultValue: "")
   String password;
+
+  @JsonKey(name: "phone", defaultValue: "")
+  String phone;
 
   @JsonKey(name: "signStatus", defaultValue: false)
   bool signStatus;
@@ -57,7 +65,7 @@ class Users {
   
   Map<String, dynamic> toJson() => _$UsersToJson(this);
   
-  factory Users.emptyInstance() => Users(name: "", account: "", password: "", signStatus: false, isCourse: "", token: "");
+  factory Users.emptyInstance() => Users(uid: "", name: "", account: "", password: "", phone: "", signStatus: false, isCourse: "", token: "");
 }
 
 

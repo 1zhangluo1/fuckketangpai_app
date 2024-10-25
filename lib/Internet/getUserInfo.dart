@@ -15,16 +15,17 @@ Future<void> initUserInf(String token) async {
   dio.options.headers = {
     'token': token,
   };
-  Response response1 = await dio.post(url2, data: body);
-  Response response2 = await dio.post(url1, data: body);
-  dynamic temp = response1.data;
+  Response response1 = await dio.post(url1, data: body);
+  Response response2 = await dio.post(url2, data: body);
+  dynamic temp = response2.data;
   GetUserInfos info = GetUserInfos.fromJson(temp);
+  final uid = response1.data['data']['uid'];
   Global.user.value = User(
     info.data.username,
     info.data.stno,
-    info.data.uid,
+    uid,
     info.data.avatar,
-    response2.data['data']['mobile'] ?? "Null",
+    response1.data['data']['mobile'] ?? "无",
     info.data.school,
     info.data.usertype,
     info.data.additionInfo.grade,
@@ -42,16 +43,17 @@ Future<User> getUserInfByToken(String token) async {
   dio.options.headers = {
     'token': token,
   };
-  Response response1 = await dio.post(url2, data: body);
-  Response response2 = await dio.post(url1, data: body);
-  dynamic temp = response1.data;
+  Response response1 = await dio.post(url1, data: body);
+  Response response2 = await dio.post(url2, data: body);
+  dynamic temp = response2.data;
+  final uid = response1.data['data']['uid'];
   GetUserInfos info = GetUserInfos.fromJson(temp);
   var user = User(
     info.data.username,
     info.data.stno,
-    info.data.uid,
+    uid,
     info.data.avatar,
-    response2.data['data']['mobile'] ?? "Null",
+    response1.data['data']['mobile'] ?? "无",
     info.data.school,
     info.data.usertype,
     info.data.additionInfo.grade,

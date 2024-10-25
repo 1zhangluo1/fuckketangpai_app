@@ -2,12 +2,14 @@
   "userNumbers": 1,
   "users": [
     {
-      "name": "张洛",
-      "account": "2300320225",
-      "password": "zl486181915",
+      "uid": "MDAwMDAwMDAwMLOGpd6IqdGwhd56oQ",
+      "name": "zl",
+      "account": "2300320222",
+      "password": "123456",
+      "phone": "12345678910",
       "signStatus": false,
       "isCourse": "毛概",
-      "token": "3ac938c4773acc9cff1fe0427de0d77c40882f8557ae73d775402834a6980fcf"
+      "token": "3ac938c4773acc9cfoasjfiosadfosfsdfsd6541646"
     }
   ]
 }

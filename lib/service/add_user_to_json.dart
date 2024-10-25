@@ -14,7 +14,7 @@ Future<int> saveToJson(Users newUser) async {
   String jsonString = await file.readAsString();
   Map<String, dynamic> jsonData = jsonDecode(jsonString);
   final userData = LocalUsers.fromJson(jsonData);
-  final isExit = userData.users.any((user) => user.name == newUser.name);
+  final isExit = userData.users.any((user) => user.uid == newUser.uid);
   if (isExit) {
     return 0;
   };
@@ -25,6 +25,7 @@ Future<int> saveToJson(Users newUser) async {
     await file.writeAsString(updatedJsonString);
     return 1;
   } on Exception catch (e) {
+    Toast('保存失败：$e');
     return -1;
   }
 }

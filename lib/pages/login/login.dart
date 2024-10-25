@@ -206,7 +206,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         await initUserInf(token);
         Toast('登录成功');
         final userInfo = Global.user.value;
-        final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token);
+        final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token, uid: userInfo.uid, phone: userInfo.phone);
         int result = await saveToJson(user);
         if (result == 0) {
           Toast('成功添加新用户');

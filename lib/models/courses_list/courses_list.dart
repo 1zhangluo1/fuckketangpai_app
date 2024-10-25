@@ -161,6 +161,7 @@ class Course {
   @JsonKey(name: "icontype", defaultValue: 0)
   int icontype;
 
+  @JsonKey(ignore: true)
   bool teaching = false;
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);

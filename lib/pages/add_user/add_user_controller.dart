@@ -44,11 +44,11 @@ class AddUserController extends GetxController {
       if (response.data['status'] == 1) {
         final token = response.data['data']['token'];
         final userInfo = await getUserInfByToken(token);
-        final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token);
+        final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token, uid: userInfo.uid, phone: userInfo.phone);
         return user;
       } else {
         print(response.data.toString());
-        Toast('添加失败');
+        Toast(response.data['message']);
       }
     } on Exception catch (e) {
       Toast(e.toString());

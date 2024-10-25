@@ -1,10 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
 import 'package:fuckketangpai/pages/private_sign_room/private_sign_controller.dart';
+import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/selfwidgets/confirm_dialog.dart';
 import 'package:fuckketangpai/tools/sign.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PrivateSignPage extends StatefulWidget {
   const PrivateSignPage({super.key});
@@ -98,13 +101,14 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '进行中课程',
+                    '签到状态',
                     style: textStyle,
                   ),
                   Text(
-                    user.isCourse,
-                    overflow: TextOverflow.ellipsis,
-                    style: textStyle,
+                    user.signStatus.toString(),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: user.signStatus ? Colors.green : Colors.red),
                   ),
                 ],
               ),
@@ -115,14 +119,33 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '签到状态',
+                    '电话号码',
                     style: textStyle,
                   ),
-                  Text(
-                    user.signStatus.toString(),
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: user.signStatus ? Colors.green : Colors.red),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: user.phone.toString(),
+                          style: TextStyle(
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                              decorationThickness: 1.5,
+                              decorationColor: Colors.lightBlue,
+                              color: Colors.lightBlue
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              final confirm = await showDialog<bool>(context: context, builder: (context) => ConfirmDialog());
+                              if (confirm != null && confirm) {
+                                launch("tel:${user.phone.toString()}");
+                              } else if (confirm == null){
+                                Toast('错误');
+                              }
+                            }
+                        )
+                      ]
+                    )
                   ),
                 ],
               ),

@@ -21,18 +21,22 @@ Map<String, dynamic> _$LocalUsersToJson(LocalUsers instance) =>
     };
 
 Users _$UsersFromJson(Map<String, dynamic> json) => Users(
+      uid: json['uid'] as String? ?? '',
       name: json['name'] as String? ?? '',
       account: json['account'] as String? ?? '',
       password: json['password'] as String? ?? '',
+      phone: json['phone'] as String? ?? '',
       signStatus: json['signStatus'] as bool? ?? false,
       isCourse: json['isCourse'] as String? ?? '',
       token: json['token'] as String? ?? '',
     );
 
 Map<String, dynamic> _$UsersToJson(Users instance) => <String, dynamic>{
+      'uid': instance.uid,
       'name': instance.name,
       'account': instance.account,
       'password': instance.password,
+      'phone': instance.phone,
       'signStatus': instance.signStatus,
       'isCourse': instance.isCourse,
       'token': instance.token,
