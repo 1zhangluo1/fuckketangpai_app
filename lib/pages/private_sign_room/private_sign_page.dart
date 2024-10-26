@@ -86,10 +86,13 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                 ),
               ),
               SliverToBoxAdapter(
-                  child: Text(
-                '本地签到用户：',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('本地签到用户：', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                      TextButton(onPressed: () => c.selectAllPeople(), child: Text('全选'))
+                    ],
+                  )),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 5,

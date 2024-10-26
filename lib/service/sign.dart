@@ -65,7 +65,37 @@ class SignWays {
         Toast('签到成功');
         return true;
       } else {
-        Toast(response.data['message']);
+        Toast(response.data['data']['info']);
+        return false;
+      }
+    } on Exception catch (e) {
+      Toast('签到失败:$e');
+      return false;
+    }
+  }
+
+  Future<bool> gpsSign(String token,String signId) async {
+    final timestamp = DateTime.now().toMillisecondsTimestamp();
+    Map<String,dynamic> signBody = {
+      'reqtimestamp': timestamp,
+      'id': signId,
+      "code":"",
+      "unusual":0,
+      "latitude":"25.3",
+      "longitude":"110.4",
+      "accuracy":"100",
+      "clienttype":1,
+    };
+    dio.options.headers = {
+      'token': token,
+    };
+    try {
+      final response = await dio.post('/AttenceApi/checkin',data: signBody);
+      if (response.data['code'] == 10000) {
+        Toast(response.data['data']['info']);
+        return true;
+      } else {
+        Toast(response.data['data']['info']);
         return false;
       }
     } on Exception catch (e) {

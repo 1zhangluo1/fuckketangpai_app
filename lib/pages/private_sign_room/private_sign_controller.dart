@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/models/online_courses/online_courses.dart';
+import 'package:fuckketangpai/pages/sign/gps_sign.dart';
 import 'package:fuckketangpai/pages/sign/number_sign.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/service/get_course.dart';
@@ -49,7 +50,6 @@ class PrivateSignController extends GetxController {
       user.signStatus = result;
     }
     users.forEach((e)=>print("签到结果后的状态：" + e.signStatus.toString()));
-    Get.forceAppUpdate();
   }
 
   void enterSignRoom(int type,BuildContext context,{String? signId}) async {
@@ -65,6 +65,16 @@ class PrivateSignController extends GetxController {
         }
       }
     } else if (type == 2) {
+      final confirmSignResult = await showDialog<bool>(context: context, builder: (context) => GpsSign());
+      if (confirmSignResult != null && signId != null) {
+        if (confirmSignResult) {
+          for (var user in users.where((user) => user.isCheck == true) ) {
+            bool result = await SignWays.get().gpsSign( user.token, signId);
+            print("${user.name}的签到结果：" + result.toString());
+            user.signStatus = result;
+          }
+        }
+      }
     } else if (type == 3) {
       final signValue = await showSignWay(context);
       if (signValue != '') {
@@ -74,6 +84,7 @@ class PrivateSignController extends GetxController {
       Toast('错误');
       return;
     }
+    Get.forceAppUpdate();
   }
 
   String mapperSignWay(int num) {
@@ -87,6 +98,13 @@ class PrivateSignController extends GetxController {
       default:
         return "异常";
     }
+  }
+
+  void selectAllPeople() {
+    users.forEach(
+        (user) => user.isCheck = true
+    );
+    Get.forceAppUpdate();
   }
 
   @override
