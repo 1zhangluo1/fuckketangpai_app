@@ -26,22 +26,27 @@ class GetCourseInfo {
     return coursesResponse;
   }
 
-  Future<bool> judgeIsSigning(String courseId) async {
+  Future<bool> judgeIsSigning(CourseList courseItem) async {
     final timestamp = DateTime.now();
     Map<String,dynamic> jsonData = {
-      'courseid': courseId,
+      'courseid': courseItem.id,
       'reqtimestamp': timestamp.toMillisecondsTimestamp(),
     };
     final response = await dio.post('/AttenceApi/getNotFinishAttenceStudent',data: jsonData);
     final checkForResult = CheckCourseSigning.fromJson(response.data);
-    final checkResult = checkForResult.data.lists.isNotEmpty;
-    return checkResult;
+    final result = checkForResult.data.lists.isNotEmpty;
+    if (result) {
+      courseItem.signType = int.parse(checkForResult.data.lists.first.type);
+      print(courseItem.type);
+      courseItem.signId = checkForResult.data.lists.first.id;
+    }
+    return checkForResult.data.lists.isNotEmpty;
   }
 
   Future<List<CourseList>> getSigningCourses() async {
     final futureCourses = await getOnlineCourses();
     final courses = futureCourses.data.list;
-    final signingCourses = (await courses.whereAsync((e) => judgeIsSigning(e.id))).toList();
+    final signingCourses = (await courses.whereAsync((e) => judgeIsSigning(e))).toList();
     return signingCourses;
   }
 

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/profiles.dart';
-import 'package:fuckketangpai/tools/sign.dart';
+import 'package:fuckketangpai/service/sign.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -96,7 +96,7 @@ class _SharedSignRoomState extends State<SharedSignRoom> {
                     BarcodeCapture result = await Get.to(Scan());
                     senMessage(message: result.barcodes.first.rawValue.toString(),isSign: true);
                     text.value = result.barcodes.first.rawValue.toString();
-                    sign(result.barcodes.first.rawValue.toString(),Global.myToken);
+                    SignWays.get().scanToSign(result.barcodes.first.rawValue.toString(),Global.myToken);
                   },
                   child: Text("点击扫码"),
                 ),
@@ -156,7 +156,7 @@ class _SharedSignRoomState extends State<SharedSignRoom> {
           Map<dynamic, dynamic> result = jsonDecode(event);
           print(result['content'] + '\n' + result['type']);
           if (result['type'] == 'sign') {
-            sign(result['content'],Global.myToken);
+            SignWays.get().scanToSign(result['content'],Global.myToken);
             Toast(result['content']);
           } else if (result['type'] == 'onlineNums') {
             userNumbers.value = int.parse(result['content']);

@@ -6,7 +6,7 @@ import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
 import 'package:fuckketangpai/pages/private_sign_room/private_sign_controller.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/selfwidgets/confirm_dialog.dart';
-import 'package:fuckketangpai/tools/sign.dart';
+import 'package:fuckketangpai/service/sign.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,12 +48,17 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                       }
                     },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.qr_code_scanner_outlined),
-                          SizedBox(width: 8,),
-                          Text('扫码签到',style: TextStyle(letterSpacing: 2),),
-                    ]),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            '扫码签到',
+                            style: TextStyle(letterSpacing: 2),
+                          ),
+                        ]),
                   ),
                 ),
               ),
@@ -62,32 +67,39 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                   height: 16,
                 ),
               ),
-              SliverToBoxAdapter(child: Text('正在签到课程：',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+              SliverToBoxAdapter(
+                  child: Text(
+                '正在签到课程：',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              )),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 5,
                 ),
               ),
               Obx(
-                  () => SliverList(
+                () => SliverList(
                   delegate: SliverChildBuilderDelegate(
-                          (_,index) => _generateCourseExpansionTileWidget(c.signingCourses[index]),
-                      childCount: c.signingCourses.length
+                    childCount: c.signingCourses.length,
+                    (_, index) => signingCourse(c.signingCourses[index]),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: Text('本地签到用户：',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+              SliverToBoxAdapter(
+                  child: Text(
+                '本地签到用户：',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              )),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 5,
                 ),
               ),
               Obx(
-                  () => SliverList(
+                () => SliverList(
                   delegate: SliverChildBuilderDelegate(
                       childCount: c.users.length,
-                          (_,index) => _buildList(c.users)[index]
-                  ),
+                      (_, index) => _buildList(c.users)[index]),
                 ),
               ),
             ],
@@ -97,55 +109,17 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
     );
   }
 
-  Widget _generateCourseExpansionTileWidget(CourseList course) {
-    return ExpansionTile(
-      title: Row(
-        children: [
-          Checkbox(
-              value: course.isChecked,
-              onChanged: (result) {
-                setState(() {
-                  course.isChecked = result ?? false;
-                });
-              }),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            course.coursename,
-            style: TextStyle(color: Colors.black54, fontSize: 20),
-          ),
-        ],
-      ),
-      children: [_generateCourseWidget(course)],
+  Widget signingCourse(CourseList course) {
+    return ListTile(
+      title: Text(course.coursename),
+      subtitle: Text(course.username),
+      trailing: ElevatedButton(
+          onPressed: () {
+            c.enterSignRoom(course.signType, context,signId: course.signId);
+            Get.forceAppUpdate();
+          },
+          child: Text(c.mapperSignWay(course.signType))),
     );
-  }
-
-  Widget _generateCourseWidget(CourseList course) {
-    final textStyle = TextStyle(fontSize: 16);
-    return FractionallySizedBox(
-        widthFactor: 1,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '老师',
-                    style: textStyle,
-                  ),
-                  Text(
-                    course.username,
-                    style: textStyle,
-                  )
-                ],
-              ),
-                ],
-              ),
-          ),
-        );
   }
 
   List<Widget> _buildList(List<Users> users) {

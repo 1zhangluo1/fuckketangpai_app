@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
 class NumberSign extends StatefulWidget {
@@ -15,7 +16,6 @@ class _NumberSignState extends State<NumberSign> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-
       textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         color: Color.fromRGBO(212, 192, 251, 1.0),
@@ -55,7 +55,7 @@ class _NumberSignState extends State<NumberSign> {
                 submittedPinTheme: submittedPinTheme,
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 showCursor: true,
-                onCompleted: (pin) => print(pin),
+                onCompleted: (pin) => Get.back(result: pin),
               ),
             ),
             SizedBox(height: 200,)
