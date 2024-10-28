@@ -5,6 +5,8 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:math';
 
+
+@Deprecated('第一版扫码库，目前已找到更高效的扫码库，新的文件位于/sign/scan_sign')
 class Scan extends StatefulWidget {
   const Scan({super.key});
 
@@ -44,7 +46,6 @@ class _ScanState extends State<Scan> {
         final devicePixelRatio = mediaQuery.devicePixelRatio;
         final size = Size(constraints.maxWidth, constraints.maxHeight) * devicePixelRatio;
         print("相机大小：${size}, 像素密度: ${devicePixelRatio}");
-
         controller = MobileScannerController(cameraResolution: size);
       }
 

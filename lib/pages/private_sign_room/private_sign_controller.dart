@@ -5,6 +5,7 @@ import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/models/online_courses/online_courses.dart';
 import 'package:fuckketangpai/pages/sign/gps_sign.dart';
 import 'package:fuckketangpai/pages/sign/number_sign.dart';
+import 'package:fuckketangpai/pages/sign/scan_sign.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/service/get_course.dart';
 import 'package:fuckketangpai/service/get_user_by_json.dart';
@@ -38,8 +39,8 @@ class PrivateSignController extends GetxController {
   }
 
   Future<String> showSignWay(BuildContext context) async {
-    BarcodeCapture result = await Get.to(Scan());
-    String url = result.barcodes.first.rawValue.toString();
+    final result = await Get.to(ScanSign());
+    String url = result;
     return url;
   }
 

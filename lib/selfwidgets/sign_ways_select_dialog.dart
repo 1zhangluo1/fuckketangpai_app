@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/pages/sign/number_sign.dart';
+import 'package:fuckketangpai/pages/sign/scan_sign.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -33,11 +34,10 @@ class SignWaysSelectDialog extends StatelessWidget {
   void enterWayFromNum(int num,BuildContext context) async {
     switch (num) {
       case 1:
-        BarcodeCapture result = await Get.to(Scan());
-        String url = result.barcodes.first.rawValue.toString();
+        final result = await Get.to<String>(ScanSign());
         Map<String,dynamic> signMessage = {
           'type': "scan",
-          'value': url,
+          'value': result,
         };
         Navigator.of(context).pop(signMessage);
       case 2:

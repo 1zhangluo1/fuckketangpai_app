@@ -315,6 +315,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  flutter_scankit:
+    dependency: "direct main"
+    description:
+      name: flutter_scankit
+      sha256: f638c659777b5dfdc14da371a0c0c9db52a08c3a666930d3dcd9c8564bac1e30
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter

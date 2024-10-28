@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/profiles.dart';
+import 'package:fuckketangpai/pages/sign/scan_sign.dart';
 import 'package:fuckketangpai/service/sign.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -93,10 +94,10 @@ class _SharedSignRoomState extends State<SharedSignRoom> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    BarcodeCapture result = await Get.to(Scan());
-                    senMessage(message: result.barcodes.first.rawValue.toString(),isSign: true);
-                    text.value = result.barcodes.first.rawValue.toString();
-                    SignWays.get().scanToSign(result.barcodes.first.rawValue.toString(),Global.myToken);
+                    String result = await Get.to(ScanSign());
+                    senMessage(message: result,isSign: true);
+                    text.value = result;
+                    SignWays.get().scanToSign(result,Global.myToken);
                   },
                   child: Text("点击扫码"),
                 ),
