@@ -10,6 +10,8 @@ import 'package:fuckketangpai/service/sign.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/courses_list/courses_list.dart';
+
 class PrivateSignPage extends StatefulWidget {
   const PrivateSignPage({super.key});
 
@@ -31,8 +33,8 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
         padding: const EdgeInsets.all(16.0),
         child: RefreshIndicator(
           onRefresh: () async {
-            c.refreshUserData();
-            c.refreshCoursesData();
+            await c.refreshUserData();
+            await c.refreshCoursesData();
           },
           child: CustomScrollView(
             slivers: [
@@ -112,7 +114,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
     );
   }
 
-  Widget signingCourse(CourseList course) {
+  Widget signingCourse(Course course) {
     return ListTile(
       title: Text(course.coursename),
       subtitle: Text(course.username),

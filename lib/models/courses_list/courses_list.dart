@@ -164,6 +164,12 @@ class Course {
   @JsonKey(ignore: true)
   bool teaching = false;
 
+  @JsonKey(ignore: true)
+  int signType = 0;
+
+  @JsonKey(ignore: true)
+  String signId = '';
+
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
   
   Map<String, dynamic> toJson() => _$CourseToJson(this);

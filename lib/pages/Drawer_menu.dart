@@ -187,7 +187,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
         await pref.clear();
         Global.user.value = User('', '', '', '', '', '', '','','','');
         Global.login = false;
-        Global.users.list.clear();
         Get.offAll(Login());
         Toast('退出成功');
       } on Exception catch (e) {

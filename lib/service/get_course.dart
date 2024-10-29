@@ -26,7 +26,7 @@ class GetCourseInfo {
     return coursesResponse;
   }
 
-  Future<bool> judgeIsSigning(CourseList courseItem) async {
+  Future<bool> judgeIsSigning(Course courseItem) async {
     final timestamp = DateTime.now();
     Map<String,dynamic> jsonData = {
       'courseid': courseItem.id,
@@ -37,15 +37,14 @@ class GetCourseInfo {
     final result = checkForResult.data.lists.isNotEmpty;
     if (result) {
       courseItem.signType = int.parse(checkForResult.data.lists.first.type);
-      print(courseItem.type);
       courseItem.signId = checkForResult.data.lists.first.id;
     }
     return checkForResult.data.lists.isNotEmpty;
   }
 
-  Future<List<CourseList>> getSigningCourses() async {
-    final futureCourses = await getOnlineCourses();
-    final courses = futureCourses.data.list;
+  Future<List<Course>> getSigningCourses() async {
+    final futureCourses = await getCourses();
+    final courses = futureCourses.data;
     final signingCourses = (await courses.whereAsync((e) => judgeIsSigning(e))).toList();
     return signingCourses;
   }

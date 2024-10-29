@@ -50,28 +50,28 @@ class _ProfilesState extends State<Profiles> {
                     });
                   },
                   children:
-                      List.generate(Global.users.list.length, (index) {
+                      List.generate(1, (index) {
                     return ExpansionPanel(
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return ListTile(
                           title: Text(
-                              '${Global.users.list[index].name} 签到:${Global.users.list[index].signState}'),
+                              '${Global.user.value.name} 签到:${Global.user.value.signState}'),
                           //tileColor: Color.fromARGB(255, 100, 99, 99),
                         );
                       },
                       body: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          line('姓名', Global.users.list[index].name),
-                          line('学号', Global.users.list[index].id),
-                          line('手机号', Global.users.list[index].phone),
-                          line('学校', Global.users.list[index].school),
+                          line('姓名', Global.user.value.name),
+                          line('学号', Global.user.value.id),
+                          line('手机号', Global.user.value.phone),
+                          line('学校', Global.user.value.school),
                           line(
                               '身份',
-                              Global.users.list[index].identity == '0'
+                              Global.user.value.identity == '0'
                                   ? '学生'
                                   : ''),
-                          line('签到状态',Global.users.list[index].signState),
+                          line('签到状态',Global.user.value.signState),
                         ],
                       ),
                       isExpanded: _isExpandedList[index], // 根据当前的展开状态显示内容
