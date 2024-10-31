@@ -12,8 +12,11 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(':app')
 }
-ext.kotlin_version = '1.9.10'
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
+buildscript {
+    ext.kotlin_version = '1.9.10'
+}
