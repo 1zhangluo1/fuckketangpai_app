@@ -12,7 +12,6 @@ import 'package:fuckketangpai/service/add_user_to_json.dart';
 import 'package:fuckketangpai/tools/encrypt_loginpass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-
 import '../../Internet/getUserInfo.dart';
 
 class Login extends StatefulWidget {
