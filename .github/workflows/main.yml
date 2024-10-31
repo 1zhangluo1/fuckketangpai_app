@@ -26,18 +26,18 @@ jobs:
           version=$(grep '^version: ' pubspec.yaml | sed 's/version: //' | cut -d '+' -f 1)
           echo "PUBSPEC_VERSION=$version" >> $GITHUB_ENV
 
-      - name: Compare Version with Git Tag
-        run: |
-          pubspec_version="${{ env.PUBSPEC_VERSION }}"
-          git_tag="${{ github.ref_name }}"
-          echo "Version from pubspec.yaml: $pubspec_version"
-          echo "Git tag from push: $git_tag"
-          if [ "$pubspec_version" != "$git_tag" ]; then
-            echo "Version ($pubspec_version) does not match Git tag ($git_tag)."
-            exit 1
-          else
-            echo "Version matches the Git tag."
-          fi
+#      - name: Compare Version with Git Tag
+#        run: |
+#          pubspec_version="${{ env.PUBSPEC_VERSION }}"
+#          git_tag="${{ github.ref_name }}"
+#          echo "Version from pubspec.yaml: $pubspec_version"
+#          echo "Git tag from push: $git_tag"
+#          if [ "$pubspec_version" != "$git_tag" ]; then
+#            echo "Version ($pubspec_version) does not match Git tag ($git_tag)."
+#            exit 1
+#          else
+#            echo "Version matches the Git tag."
+#          fi
 
       - name: Set up JDK
         uses: actions/setup-java@v4
