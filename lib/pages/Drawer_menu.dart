@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/userInfo.dart';
+import 'package:fuckketangpai/pages/login/login.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../global/static.dart';
-import 'Login/login.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu(this.pageController);
