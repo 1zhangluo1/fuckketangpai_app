@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuckketangpai/pages/course_sign_status/sign_status_page.dart';
 import 'package:fuckketangpai/pages/room_list/room_list_controller.dart';
 import 'package:fuckketangpai/pages/shared_sign_room/shared_room_page.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class _RoomListPageState extends State<RoomListPage> {
                 itemBuilder: (context, index) {
                   final course = roomListController.courses[index];
                   return ListTile(
-                    onTap: () => Get.to(SharedRoomPage()),
+                    onTap: () => Get.to(SignStatusPage(),arguments: course.id),
                     leading: Icon(
                       Icons.live_tv_outlined,
                       color: course.teaching ? Colors.green : Colors.grey,

@@ -102,19 +102,6 @@ class PrivateSignController extends GetxController {
     Get.forceAppUpdate();
   }
 
-  String mapperSignWay(int num) {
-    switch (num) {
-      case 1:
-        return "数字签到";
-      case 2:
-        return "GPS签到";
-      case 3:
-        return "扫码签到";
-      default:
-        return "异常";
-    }
-  }
-
   void selectAllPeople() {
     users.forEach(
         (user) => user.isCheck = true

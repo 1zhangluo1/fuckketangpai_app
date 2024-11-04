@@ -170,6 +170,12 @@ class Course {
   @JsonKey(ignore: true)
   String signId = '';
 
+
+  @override
+  String toString() {
+    return 'Course{id: $id, uid: $uid, issys: $issys, coursename: $coursename, code: $code, stopcode: $stopcode, classname: $classname, semester: $semester, term: $term, isrecruit: $isrecruit, teachtype: $teachtype, studytime: $studytime, classending: $classending, canvisit: $canvisit, username: $username, avatar: $avatar, minpic: $minpic, middlepic: $middlepic, studentbgpic: $studentbgpic, studentminpic: $studentminpic, teacherbgpic: $teacherbgpic, teacherminpic: $teacherminpic, total: $total, role: $role, neednatureclass: $neednatureclass, needgrade: $needgrade, needentrance: $needentrance, identity: $identity, isattest: $isattest, isTop: $isTop, icontype: $icontype, teaching: $teaching, signType: $signType, signId: $signId}';
+  }
+
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
   
   Map<String, dynamic> toJson() => _$CourseToJson(this);

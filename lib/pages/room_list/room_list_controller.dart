@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../models/courses_list/courses_list.dart';
 
 class RoomListController extends GetxController {
-  RxList courses = <Course>[].obs;
+  RxList<Course> courses = <Course>[].obs;
 
   Future initRoom() async {
     try {
@@ -17,6 +17,7 @@ class RoomListController extends GetxController {
         final isOnline = onlineCourses
             .any((itemOnline) => itemOnline.coursename == itemAll.coursename);
         if (isOnline) {
+          print(itemAll.toString());
           itemAll.teaching = true;
           moveToTop(courses, itemAll);
         }

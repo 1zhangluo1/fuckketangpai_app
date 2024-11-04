@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/courses_list/courses_list.dart';
+import '../../tools/uitils.dart';
 
 class PrivateSignPage extends StatefulWidget {
   const PrivateSignPage({super.key});
@@ -123,7 +124,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
             c.enterSignRoom(course.signType, context,signId: course.signId);
             Get.forceAppUpdate();
           },
-          child: Text(c.mapperSignWay(course.signType))),
+          child: Text(mapperSignWay(course.signType))),
     );
   }
 
