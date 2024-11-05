@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/gen/assets.gen.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
-import 'package:fuckketangpai/pages/Login/password_login.dart';
-import 'package:fuckketangpai/pages/Login/phone_login.dart';
+import 'package:fuckketangpai/pages/login/password_login.dart';
+import 'package:fuckketangpai/pages/login/phone_login.dart';
 import 'package:fuckketangpai/pages/Sign_Room.dart';
 import 'package:fuckketangpai/pages/main_struct.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
@@ -103,12 +103,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       height: 230,
                       child: TabBarView(
                         children: [
-                          password_login(
+                          PasswordLogin(
                             accountController: accountController,
                             passwordController: passwordController,
                             validLogin: validLogin,
                           ),
-                          phone_login(
+                          PhoneLogin(
                             phone_login_key: phone_login_key,
                             phoneController: phoneController,
                             validController: validController,
