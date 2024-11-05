@@ -1,4 +1,3 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/Detail_Profile.dart';
