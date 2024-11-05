@@ -71,7 +71,9 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            if(keystoreProperties['storeFile'] != null) {
+                signingConfig signingConfigs.release
+            }
         }
 
         debug {
