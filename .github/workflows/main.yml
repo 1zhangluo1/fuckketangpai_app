@@ -57,7 +57,7 @@ jobs:
       - run: flutter --version
 
       - name: Build for Android
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --release
 
       - name: Key base64 to file
         uses: timheuer/base64-to-file@v1.2
@@ -79,22 +79,16 @@ jobs:
                 apksigner sign --v4-signing-enabled false --ks /tmp/.android_key/android_key.jks --ks-pass env:ANDROID_KS_PASS --ks-key-alias ${{ secrets.KEY_ALIAS }} ${file}
               done
 
-      - name: Get apk info
-        id: apk-info
-        uses: hkusu/apk-info-action@v1
-        with:
-          apk-path: build/app/outputs/flutter-apk/app-release.apk
-
       - name: Rename Apk And Move Apk
         run: |
           mkdir -p build/app/outputs/my-release
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/my-release/fuckketangpai-android-v${{ steps.apk-info.outputs.version-name }}.apk
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/my-release/fuckketangpai-android-v${{ env.PUBSPEC_VERSION }}.apk
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag: ${{ github.ref_name }}
-          files: build/app/outputs/my-release/fuckketangpai-android-v${{ steps.apk-info.outputs.version-name }}.apk
+          files: build/app/outputs/my-release/fuckketangpai-android-v${{ env.PUBSPEC_VERSION }}.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
