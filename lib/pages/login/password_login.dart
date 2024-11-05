@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class password_login extends StatefulWidget {
+class PasswordLogin extends StatefulWidget {
   TextEditingController accountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey validLogin;
 
-  password_login({
+  PasswordLogin({
     required this.accountController,
     required this.passwordController,
     required this.validLogin,
   });
 
   @override
-  State<password_login> createState() => _password_loginState();
+  State<PasswordLogin> createState() => _PasswordLoginState();
 }
 
-class _password_loginState extends State<password_login>
+class _PasswordLoginState extends State<PasswordLogin>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {

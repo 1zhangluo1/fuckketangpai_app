@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/tools/randoms_tring.dart';
 
-class phone_login extends StatefulWidget {
+class PhoneLogin extends StatefulWidget {
   GlobalKey phone_login_key;
   TextEditingController phoneController;
   TextEditingController validController;
 
-  phone_login({
+  PhoneLogin({
     required this.phone_login_key,
     required this.phoneController,
     required this.validController,
   });
 
   @override
-  State<phone_login> createState() => _phone_loginState();
+  State<PhoneLogin> createState() => _PhoneLoginState();
 }
 
-class _phone_loginState extends State<phone_login>
+class _PhoneLoginState extends State<PhoneLogin>
     with AutomaticKeepAliveClientMixin {
   late String sessionId;
   final verifyKey = GlobalKey<FormFieldState>();

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
-import 'package:fuckketangpai/pages/Login/login.dart';
+import 'package:fuckketangpai/pages/Login/login_page.dart';
 import 'package:fuckketangpai/pages/main_struct.dart';
 import 'package:get/get.dart';
 
