@@ -34,44 +34,47 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Obx(
-                        () => Image.network(
-                          Global.user.value.headImageuri,
-                          fit: BoxFit.contain,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return ClipOval(
-                              child: Icon(
-                                Icons.person,
-                                size: 35,
-                              ),
-                            );
-                          },
+                        () => ClipOval(
+                          child: Image.network(
+                            Global.user.value.headImageuri,
+                            fit: BoxFit.cover,
+                            width: 80,
+                            height: 80,
+                            errorBuilder: (BuildContext context, Object exception,
+                                StackTrace? stackTrace) {
+                              return ClipOval(
+                                child: Icon(
+                                  Icons.person,
+                                  size: 35,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
                         width: 30,
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            Global.user.value.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            Global.user.value.identity == '0' ? '学生' : '老师',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
+                      Builder(
+                        builder: (context) {
+                          final theme = Theme.of(context);
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                Global.user.value.name,
+                                style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.onPrimary),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                Global.user.value.identity == '0' ? '学生' : '老师',
+                                style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.onPrimary),
+                              ),
+                            ],
+                          );
+                        }
                       )
                     ],
                   ),

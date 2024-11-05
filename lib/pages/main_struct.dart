@@ -1,7 +1,8 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/pages/Detail_Profile.dart';
-import 'package:fuckketangpai/pages/Drawer_menu.dart';
+import 'package:fuckketangpai/pages/drawer_menu.dart';
 import 'package:fuckketangpai/pages/Sign_Room.dart';
 import 'package:fuckketangpai/pages/private_sign_room/private_sign_page.dart';
 import 'package:fuckketangpai/pages/room_list/room_list_page.dart';
@@ -42,22 +43,21 @@ class _MainStructState extends State<MainStruct> {
           '课堂派',
           style: TextStyle(color: Colors.white, fontSize: 25),
         ),
-        leading: Builder(builder: (context) {
-          return InkWell(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
+        leading: Center(
+          child: Builder(builder: (context) {
+            return InkWell(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
               child: Obx(
                 () => ClipOval(
                   child: Image.network(
                     Global.user.value.headImageuri,
-                    fit: BoxFit.contain,
-                    width: 100.0,
-                    height: 100.0,
+                    fit: BoxFit.cover,
+                    width: 42,
+                    height: 42,
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                       return ClipOval(
@@ -70,9 +70,9 @@ class _MainStructState extends State<MainStruct> {
                   ),
                 ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
