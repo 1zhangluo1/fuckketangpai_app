@@ -57,7 +57,7 @@ jobs:
       - run: flutter --version
 
       - name: Build for Android
-        run: flutter build apk --release
+        run: flutter build apk --split-per-abi
 
       - name: Key base64 to file
         uses: timheuer/base64-to-file@v1.2
