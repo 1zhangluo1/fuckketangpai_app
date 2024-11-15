@@ -7,7 +7,9 @@ import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
 import 'package:fuckketangpai/pages/private_sign_room/private_sign_controller.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/selfwidgets/confirm_dialog.dart';
+import 'package:fuckketangpai/selfwidgets/introduce_dialog.dart';
 import 'package:fuckketangpai/service/sign.dart';
+import 'package:fuckketangpai/strings.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -184,10 +186,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                       ),
                       IconButton(
                           onPressed: () async {
-                            Get.defaultDialog(
-                              title: '账号状态说明',
-                              content: Text('安东杰卡斯破地方舰炮耳机')
-                            );
+                            IntroduceDialog.showLoadingDialog(context: context, title: '帐号状态说明', content: Strings.accountStatusIntroduce);
                           },
                           icon: SvgPicture.asset('images/question.svg',width: 28,height: 28,)
                       ),
@@ -249,22 +248,39 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
               SizedBox(
                 height: 16,
               ),
-              Container(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                    onPressed: () async {
-                      final confirm = await showDialog<bool>(context: context, builder: (context) {
-                        return ConfirmDialog(content: '确认删除此用户吗');
-                      });
-                      if (confirm ?? false) {
-                        await c.deleteSelectedUser(user, context);
-                        Get.forceAppUpdate();
-                      }
-                    },
-                    icon: Icon(Icons.delete_forever_outlined,color: Colors.white,),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red, padding: EdgeInsets.symmetric(vertical: 12)),
-                    label: Text('删除用户',style: TextStyle(color: Colors.white),)
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton.icon(
+                        onPressed: () async {
+                        },
+                        icon: Icon(Icons.update_outlined,color: Colors.white,),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                        label: Text('更新用户',style: TextStyle(color: Colors.white),)
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton.icon(
+                        onPressed: () async {
+                          final confirm = await showDialog<bool>(context: context, builder: (context) {
+                            return ConfirmDialog(content: '确认删除此用户吗');
+                          });
+                          if (confirm ?? false) {
+                            await c.deleteSelectedUser(user, context);
+                            Get.forceAppUpdate();
+                          }
+                        },
+                        icon: Icon(Icons.delete_forever_outlined,color: Colors.white,),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                        label: Text('删除用户',style: TextStyle(color: Colors.white),)
+                    ),
+                  )
+                ],
               )
             ],
           ),

@@ -15,11 +15,16 @@ class _UsersListState extends State<UsersList> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(18.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Align(alignment: Alignment.topLeft ,child: Text('过期用户',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
-            Expanded(
+            Align(alignment: Alignment.topLeft ,child: Text('过期用户',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.redAccent),)),
+            SizedBox(
+              height: 25,
+            ),
+            SizedBox(
+              height: 200,
               child: ListView.builder(
                   itemCount: widget.users.length,
                   itemBuilder: (context,index) {
@@ -31,7 +36,7 @@ class _UsersListState extends State<UsersList> {
                   }
               ),
             ),
-            Align(alignment: Alignment.bottomRight,child: Text('我知道了'))
+            Align(alignment: Alignment.bottomRight,child: TextButton(onPressed: () => Navigator.of(context).pop() , child: Text('我知道了',style: TextStyle(color: Colors.blue),)))
           ],
         ),
       ),

@@ -33,7 +33,6 @@ class AppNetwork {
   static Future<void> initNetwork() async {
     final pref = await SharedPreferences.getInstance();
     String token = pref.getString('token') ?? '';
-    print(token);
     if (token.isNotEmpty) {
       _instance.ketangpaiDio = setupKetangpaiDio(_instance.ketangpaiDio, token);
     }

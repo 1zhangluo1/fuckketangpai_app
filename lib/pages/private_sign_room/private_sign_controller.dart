@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fuckketangpai/main.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/pages/sign/gps_sign.dart';
 import 'package:fuckketangpai/pages/sign/number_sign.dart';
@@ -38,10 +39,11 @@ class PrivateSignController extends GetxController {
     Get.forceAppUpdate();
   }
 
-  void listInvalidUser(BuildContext context) {
-    final invalidUsers = <Users>[];
-    invalidUsers.addAll(users.where((user) => !user.tokenStatus).toList());
-    if (invalidUsers.isNotEmpty) {
+  void listInvalidUser() {
+    final context = navigatorKey.currentContext;
+    final invalidUsers = users.where((user) => user.tokenStatus == false).toList();
+    print(invalidUsers.length);
+    if (invalidUsers.isNotEmpty && context != null) {
       showDialog(context: context, builder: (context) => UsersList(users: users), barrierDismissible: false);
     }
   }
@@ -139,10 +141,11 @@ class PrivateSignController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    Future.wait([
-      refreshUserData(),
-      refreshCoursesData()
+    await Future.wait([
+    refreshUserData(),
+    refreshCoursesData()
     ]);
+    listInvalidUser();
   }
 
 }

@@ -12,6 +12,8 @@ void main() async {
   runApp(MyApp());
 }
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent.shade100),
         useMaterial3: true,
       ),
+      navigatorKey: navigatorKey,
       home: Global.login ? MainStruct() : Login(),
       debugShowCheckedModeBanner: false,
     );

@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Internet/getUserInfo.dart';
 
-
 class Global {
   static List<String> tokens = [];
   static String myToken = '';

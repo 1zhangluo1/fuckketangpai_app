@@ -1,8 +1,8 @@
 import 'package:fuckketangpai/Internet/network.dart';
+import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/check_course_signing/check_course_signing.dart';
 import 'package:fuckketangpai/models/courses_list/courses_list.dart';
 import 'package:fuckketangpai/models/online_courses/online_courses.dart';
-import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
 import 'package:fuckketangpai/tools/uitils.dart';
 
@@ -32,7 +32,6 @@ class GetCourseInfo {
       'courseid': courseItem.id,
       'reqtimestamp': timestamp.toMillisecondsTimestamp(),
     };
-    print(dio.options.headers);
     final response = await dio.post('/AttenceApi/getNotFinishAttenceStudent',data: jsonData);
     final checkForResult = CheckCourseSigning.fromJson(response.data);
     final result = checkForResult.data.lists.isNotEmpty;
