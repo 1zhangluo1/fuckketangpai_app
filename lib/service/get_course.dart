@@ -32,6 +32,7 @@ class GetCourseInfo {
       'courseid': courseItem.id,
       'reqtimestamp': timestamp.toMillisecondsTimestamp(),
     };
+    print(dio.options.headers);
     final response = await dio.post('/AttenceApi/getNotFinishAttenceStudent',data: jsonData);
     final checkForResult = CheckCourseSigning.fromJson(response.data);
     final result = checkForResult.data.lists.isNotEmpty;

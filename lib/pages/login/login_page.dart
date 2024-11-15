@@ -8,7 +8,7 @@ import 'package:fuckketangpai/pages/login/phone_login.dart';
 import 'package:fuckketangpai/pages/Sign_Room.dart';
 import 'package:fuckketangpai/pages/main_struct.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
-import 'package:fuckketangpai/service/add_user_to_json.dart';
+import 'package:fuckketangpai/service/edit_user_to_json.dart';
 import 'package:fuckketangpai/tools/encrypt_loginpass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';

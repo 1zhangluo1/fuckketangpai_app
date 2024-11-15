@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  const ConfirmDialog({super.key});
+  ConfirmDialog({super.key,required this.content});
+
+  String content;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('确认'),
-      content: Text('你确定要拨打这个电话吗?'),
+      content: Text(content),
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context,false),

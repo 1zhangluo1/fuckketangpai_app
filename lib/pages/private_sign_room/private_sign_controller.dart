@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
@@ -6,11 +5,15 @@ import 'package:fuckketangpai/pages/sign/gps_sign.dart';
 import 'package:fuckketangpai/pages/sign/number_sign.dart';
 import 'package:fuckketangpai/pages/sign/scan_sign.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/selfwidgets/users_list.dart';
 import 'package:fuckketangpai/service/get_course.dart';
 import 'package:fuckketangpai/service/get_user_by_json.dart';
+import 'package:fuckketangpai/service/get_user_info.dart';
 import 'package:get/get.dart';
 import '../../global/static.dart';
 import '../../models/courses_list/courses_list.dart';
+import '../../selfwidgets/loading_dialog.dart';
+import '../../service/edit_user_to_json.dart';
 import '../../service/sign.dart';
 
 class PrivateSignController extends GetxController {
@@ -28,13 +31,30 @@ class PrivateSignController extends GetxController {
       users.addAll(userList);
       users.firstWhere((e) => e.uid == Global.user.value.uid).isCheck = true;
     }
+    await Future.wait(users.map((user) async {
+      final status = await GetUserInfo.get().checkTokenStatus(user.token);
+      user.tokenStatus = status;
+    }));
+    Get.forceAppUpdate();
   }
 
-  Future refreshCoursesData() async {
+  void listInvalidUser(BuildContext context) {
+    final invalidUsers = <Users>[];
+    invalidUsers.addAll(users.where((user) => !user.tokenStatus).toList());
+    if (invalidUsers.isNotEmpty) {
+      showDialog(context: context, builder: (context) => UsersList(users: users), barrierDismissible: false);
+    }
+  }
+
+  Future<void> refreshCoursesData() async {
     final signingCourses = await GetCourseInfo.get().getSigningCourses();
     this.signingCourses.clear();
     this.signingCourses.addAll(signingCourses);
-    this.signingCourses.forEach((e)=>print(e.signType));
+  }
+
+  Future<bool> checkUserAccountStatus(String token) async {
+    final status = await GetUserInfo.get().checkTokenStatus(token);
+    return status;
   }
 
   Future<String> showSignWay(BuildContext context) async {
@@ -109,11 +129,20 @@ class PrivateSignController extends GetxController {
     Get.forceAppUpdate();
   }
 
+  Future<void> deleteSelectedUser(Users user,BuildContext context) async {
+    LoadingDialog.showLoadingDialog(context: context, hintText: '删除中...');
+    await deleteUser(user);
+    await refreshUserData();
+    LoadingDialog.hideDialog(context: context);
+  }
+
   @override
   void onInit() async {
     super.onInit();
-    refreshUserData();
-    refreshCoursesData();
+    Future.wait([
+      refreshUserData(),
+      refreshCoursesData()
+    ]);
   }
 
 }

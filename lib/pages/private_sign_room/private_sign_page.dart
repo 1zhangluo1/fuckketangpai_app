@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
 import 'package:fuckketangpai/models/online_courses/online_courses.dart';
 import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
@@ -175,16 +176,41 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '签到状态',
-                    style: textStyle,
+                  Row(
+                    children: [
+                      Text(
+                        '账号状态是否过期',
+                        style: textStyle,
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            Get.defaultDialog(
+                              title: '账号状态说明',
+                              content: Text('安东杰卡斯破地方舰炮耳机')
+                            );
+                          },
+                          icon: SvgPicture.asset('images/question.svg',width: 28,height: 28,)
+                      ),
+                    ],
                   ),
-                  Text(
-                    user.signStatus.toString(),
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: user.signStatus ? Colors.green : Colors.red),
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        user.tokenStatus.toString(),
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: user.tokenStatus ? Colors.green : Colors.red),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            user.tokenStatus = await c.checkUserAccountStatus(user.token);
+                            Get.forceAppUpdate();
+                          },
+                          icon: Icon(Icons.refresh_outlined)
+                      )
+                    ],
+                  )
+
                 ],
               ),
               SizedBox(
@@ -210,7 +236,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                           ..onTap = () async {
                             final confirm = await showDialog<bool>(
                                 context: context,
-                                builder: (context) => ConfirmDialog());
+                                builder: (context) => ConfirmDialog(content: "确定要拨打这个电话吗",));
                             if (confirm != null && confirm) {
                               launch("tel:${user.phone.toString()}");
                             } else if (confirm == null) {
@@ -220,6 +246,26 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                   ])),
                 ],
               ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                    onPressed: () async {
+                      final confirm = await showDialog<bool>(context: context, builder: (context) {
+                        return ConfirmDialog(content: '确认删除此用户吗');
+                      });
+                      if (confirm ?? false) {
+                        await c.deleteSelectedUser(user, context);
+                        Get.forceAppUpdate();
+                      }
+                    },
+                    icon: Icon(Icons.delete_forever_outlined,color: Colors.white,),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red, padding: EdgeInsets.symmetric(vertical: 12)),
+                    label: Text('删除用户',style: TextStyle(color: Colors.white),)
+                ),
+              )
             ],
           ),
         ));

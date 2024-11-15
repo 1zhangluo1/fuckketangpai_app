@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../Internet/getUserInfo.dart';
 import '../../global/static.dart';
 import '../../selfwidgets/Toast.dart';
-import '../../service/add_user_to_json.dart';
+import '../../service/edit_user_to_json.dart';
 import '../../tools/encrypt_loginpass.dart';
 
 class AddUserController extends GetxController {
