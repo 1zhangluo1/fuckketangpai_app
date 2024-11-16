@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fuckketangpai/Internet/network.dart';
-import 'package:fuckketangpai/selfwidgets/Toast.dart';
 
 class GetUserInfo {
 

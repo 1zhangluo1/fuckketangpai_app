@@ -42,9 +42,12 @@ class PrivateSignController extends GetxController {
   void listInvalidUser() {
     final context = navigatorKey.currentContext;
     final invalidUsers = users.where((user) => user.tokenStatus == false).toList();
-    print(invalidUsers.length);
+    if (kDebugMode) {
+      print(invalidUsers.length);
+      invalidUsers.forEach((e) => print(e.toString()));
+    }
     if (invalidUsers.isNotEmpty && context != null) {
-      showDialog(context: context, builder: (context) => UsersList(users: users), barrierDismissible: false);
+      showDialog(context: context, builder: (context) => UsersList(users: invalidUsers), barrierDismissible: false);
     }
   }
 

@@ -66,6 +66,10 @@ class Users {
   @JsonKey(ignore: true)
   bool tokenStatus = true;
 
+  @override
+  String toString() {
+    return 'Users{uid: $uid, name: $name, account: $account, password: $password, phone: $phone, signStatus: $signStatus, isCourse: $isCourse, token: $token, isCheck: $isCheck, tokenStatus: $tokenStatus}';
+  }
 
   factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
   
