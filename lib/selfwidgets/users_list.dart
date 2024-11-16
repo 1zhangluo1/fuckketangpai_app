@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/pages/add_user/add_user_page.dart';
+import 'package:get/get.dart';
 
 class UsersList extends StatefulWidget {
   const UsersList({super.key,required this.users});
@@ -31,7 +33,7 @@ class _UsersListState extends State<UsersList> {
                     return ListTile(
                       title: Text(widget.users[index].name),
                       leading: Icon(Icons.error_outlined,color: Colors.red,),
-                      trailing: TextButton(onPressed: () {}, child: Text('更新账户')),
+                      trailing: TextButton(onPressed: () => Get.to(AddUserPage()), child: Text('更新账户')),
                     );
                   }
               ),

@@ -9,7 +9,8 @@ import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/selfwidgets/users_list.dart';
 import 'package:fuckketangpai/service/get_course.dart';
 import 'package:fuckketangpai/service/get_user_by_json.dart';
-import 'package:fuckketangpai/service/get_user_info.dart';
+import 'package:fuckketangpai/service/check_user_status.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import '../../global/static.dart';
 import '../../models/courses_list/courses_list.dart';
@@ -25,6 +26,8 @@ class PrivateSignController extends GetxController {
 
   RxList<Course> signingCourses = <Course>[].obs;
 
+  RxList<Users> invalidUsers = <Users>[].obs;
+
   Future refreshUserData() async {
     final userList = await getLocalUsersData;
     if (userList != null) {
@@ -33,15 +36,28 @@ class PrivateSignController extends GetxController {
       users.firstWhere((e) => e.uid == Global.user.value.uid).isCheck = true;
     }
     await Future.wait(users.map((user) async {
-      final status = await GetUserInfo.get().checkTokenStatus(user.token);
+      final status = await CheckUserStatus.get().checkTokenStatus(user.token);
       user.tokenStatus = status;
     }));
+    invalidUsers.value = users.where((user) => user.tokenStatus == false).toList();
+    Get.forceAppUpdate();
+  }
+
+  Future updateInvalidUserInfo() async {
+    await Future.wait(invalidUsers.map((user) async {
+      if (user.password != '') {
+        final result = await CheckUserStatus.get().updateUserToken(user);
+        if (result) {
+          user.tokenStatus = true;
+        }
+      }
+    }));
+    invalidUsers.value = users.where((user) => user.tokenStatus == false).toList();
     Get.forceAppUpdate();
   }
 
   void listInvalidUser() {
     final context = navigatorKey.currentContext;
-    final invalidUsers = users.where((user) => user.tokenStatus == false).toList();
     if (kDebugMode) {
       print(invalidUsers.length);
       invalidUsers.forEach((e) => print(e.toString()));
@@ -58,7 +74,7 @@ class PrivateSignController extends GetxController {
   }
 
   Future<bool> checkUserAccountStatus(String token) async {
-    final status = await GetUserInfo.get().checkTokenStatus(token);
+    final status = await CheckUserStatus.get().checkTokenStatus(token);
     return status;
   }
 
@@ -148,6 +164,7 @@ class PrivateSignController extends GetxController {
     refreshUserData(),
     refreshCoursesData()
     ]);
+    await updateInvalidUserInfo();
     listInvalidUser();
   }
 

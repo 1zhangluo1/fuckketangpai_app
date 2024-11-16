@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 extension AsyncWhereExtension<T> on Iterable<T> {
   Future<List<T>> whereAsync(FutureOr<bool> Function(T element) test) async {
     List<T> result = [];
@@ -42,5 +44,11 @@ String mapperSignStatus(int num) {
       return '正在签到';
       default:
         return '未知';
+  }
+}
+
+void debugModePrint(String content) {
+  if (kDebugMode) {
+    print(content);
   }
 }

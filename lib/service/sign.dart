@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/foundation.dart';
-import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
 import '../selfwidgets/Toast.dart';
 
 class SignWays {
 
-  final dio = AppNetwork.get().ketangpaiDio;
+  final dio = dios.Dio();
 
   Future<bool> scanToSign(String params,String token) async {
     DateTime now = DateTime.now();

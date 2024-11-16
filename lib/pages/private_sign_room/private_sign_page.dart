@@ -158,6 +158,13 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
             user.name,
             style: TextStyle(color: Colors.black54, fontSize: 20),
           ),
+          SizedBox(
+            width: 10,
+          ),
+          user.tokenStatus ? SizedBox() : Icon(
+            Icons.error_outlined,
+            color: Colors.red,
+          )
         ],
       ),
       children: [_generateWidget(user)],
@@ -253,8 +260,7 @@ class _PrivateSignPageState extends State<PrivateSignPage> {
                   Expanded(
                     flex: 1,
                     child: ElevatedButton.icon(
-                        onPressed: () async {
-                        },
+                        onPressed: () => Get.to(AddUserPage()),
                         icon: Icon(Icons.update_outlined,color: Colors.white,),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
                         label: Text('更新用户',style: TextStyle(color: Colors.white),)

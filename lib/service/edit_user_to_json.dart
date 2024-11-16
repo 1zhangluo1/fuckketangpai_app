@@ -17,7 +17,6 @@ Future<int> saveToJson(Users newUser) async {
   if (isExit) {
     return 0;
   }
-  ;
   userData.users.add(newUser);
   userData.userNumbers = userData.users.length;
   String updatedJsonString = jsonEncode(userData);
@@ -30,7 +29,8 @@ Future<int> saveToJson(Users newUser) async {
   }
 }
 
-Future<void> changeSingleUserInfo(Users user) async {
+Future<bool> changeSingleUserInfo(Users user) async {
+  var result = false;
   final path = await docPath;
   final file = File('$path/users.json');
   if (!await file.exists()) {
@@ -52,9 +52,12 @@ Future<void> changeSingleUserInfo(Users user) async {
   try {
     // 写入更新后的 JSON 数据
     await file.writeAsString(updatedJsonString);
+    result = true;
     Toast('更新用户信息成功');
   } on Exception catch (e) {
     Toast('更新失败：$e');
+  } finally {
+    return result;
   }
 }
 

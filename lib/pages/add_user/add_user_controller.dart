@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fuckketangpai/models/local_users/local_users.dart';
+import 'package:fuckketangpai/selfwidgets/confirm_dialog.dart';
 import 'package:fuckketangpai/selfwidgets/loading_dialog.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import '../../Internet/getUserInfo.dart';
 import '../../global/static.dart';
@@ -47,11 +45,13 @@ class AddUserController extends GetxController {
         final user = Users(name: userInfo.name, account: account, password: password, signStatus: false, isCourse: '无', token: token, uid: userInfo.uid, phone: userInfo.phone);
         return user;
       } else {
-        print(response.data.toString());
+        debugModePrint(response.data.toString());
         Toast(response.data['message']);
+        return null;
       }
     } on Exception catch (e) {
       Toast(e.toString());
+      return null;
     }
   }
 
@@ -83,7 +83,10 @@ class AddUserController extends GetxController {
       if (result == 1) {
         Toast('添加成功');
       } else if (result == 0) {
-        Toast('用户已存在');
+        bool confirm = await ConfirmDialog.showLoadingDialog(context: context,content: '该用户已存在，点击确定更新用户信息');
+        if (confirm) {
+          await changeSingleUserInfo(user);
+        }
       } else if (result == -1) {
         Toast('添加失败');
       }

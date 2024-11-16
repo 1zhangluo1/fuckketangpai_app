@@ -22,4 +22,16 @@ class ConfirmDialog extends StatelessWidget {
       ],
     );
   }
+
+  static showLoadingDialog(
+      {required BuildContext context, required String content}) =>
+      showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return ConfirmDialog(
+              content: content,
+            );
+          }
+      );
 }
