@@ -1,7 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:fuckketangpai/global/static.dart';
+import 'package:fuckketangpai/pages/course_detail/announcement/announcement_page.dart';
+import 'package:fuckketangpai/pages/course_detail/answer_online_question/answer_question_page.dart';
+import 'package:fuckketangpai/pages/course_detail/course_source/source_page.dart';
+import 'package:fuckketangpai/pages/course_detail/course_ware/course_ware_page.dart';
+import 'package:fuckketangpai/pages/course_detail/exam/exam_page.dart';
+import 'package:fuckketangpai/pages/course_detail/homework/homework_page.dart';
+import 'package:fuckketangpai/pages/course_detail/topic/topic_page.dart';
 import 'package:fuckketangpai/selfwidgets/vertical_icon_button.dart';
 import 'package:get/get.dart';
 
@@ -17,11 +22,17 @@ class _CourseStructState extends State<CourseStruct>{
   @override
   Widget build(BuildContext context) {
     final textStyle = (fontSize) => TextStyle(fontSize: fontSize, color: Colors.white);
-    final buttonTextStyle = (fontSize) => TextStyle(fontSize: fontSize, color: Colors.black);
+    final buttonTextStyle = (fontSize) => TextStyle(fontSize: fontSize, color: Colors.grey);
+    final selectedTextStyle = TextStyle(fontSize: 16.0, color: Colors.blue);
+    final controller = PageController();
+    final titles = ['考试','作业','互动答题','资料','课件','公告','话题'];
+    final categories = titles.asMap().entries.map((e) => Category(title: e.value, index: e.key, isSelected: false)).toList();
+    var currentIndex = 0.obs;
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('课程详情')),
+          title: Text('课程详情'),
+          centerTitle: true,
         ),
         body: ConstrainedBox(
           constraints: BoxConstraints.expand(),
@@ -74,6 +85,7 @@ class _CourseStructState extends State<CourseStruct>{
                             Text(
                               '离散数学',
                               style: textStyle(22.0),
+                              overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(
                               height: 8,
@@ -128,7 +140,7 @@ class _CourseStructState extends State<CourseStruct>{
               child: Column(
                 children: [
                   Container(
-                    height: 90,
+                    height: 100,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -149,7 +161,7 @@ class _CourseStructState extends State<CourseStruct>{
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -158,56 +170,55 @@ class _CourseStructState extends State<CourseStruct>{
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2), // 阴影颜色
-                          blurRadius: 8, // 阴影的模糊半径
-                          offset: Offset(4, 4), // 阴影偏移
+                          blurRadius: 4, // 阴影的模糊半径
+                          offset: Offset(2, 2), // 阴影偏移
                         ),
                       ],
                     ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: [
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('考试',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('作业',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: null,
-                              child: Text('互动答题',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('资料',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('课件',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('公告',style: buttonTextStyle(12.0),)
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text('话题',style: buttonTextStyle(12.0),)
-                          ),
-                        ],
+                        children: categories.map((e) =>
+                            Obx(
+                                () => Column(
+                                  children: [
+                                    TextButton(
+                                      onPressed: e.index == currentIndex.value ? null : () {
+                                        currentIndex.value = e.index;
+                                        controller.jumpToPage(e.index);
+                                      } ,
+                                      child: Text(e.title,style: e.index == currentIndex.value ? selectedTextStyle : buttonTextStyle(14.0),)),
+                                    Container(
+                                      height: 2,
+                                      width: 40,
+                                      color: currentIndex.value == e.index
+                                          ? Colors.blue
+                                          : Colors.transparent,
+                                    ),
+                                  ],
+                                ),
+                            ),
+                        ).toList(),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Expanded(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      color: Colors.transparent,
+                      color: Colors.white,
                       child: PageView(
+                        controller: controller,
                         children: [
+                          ExamPage(),
+                          HomeworkPage(),
+                          AnswerQuestionPage(),
+                          SourcePage(),
+                          CourseWarePage(),
+                          AnnouncementPage(),
+                          TopicPage()
                         ],
                       ),
                     ),
@@ -219,4 +230,13 @@ class _CourseStructState extends State<CourseStruct>{
         )
     );
   }
+
+}
+
+class Category {
+  final String title;
+  final int index;
+  final bool isSelected;
+
+  Category({required this.title, required this.index, required this.isSelected});
 }

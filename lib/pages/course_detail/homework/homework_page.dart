@@ -10,6 +10,10 @@ class HomeworkPage extends StatefulWidget {
 class _HomeworkPageState extends State<HomeworkPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('作业'),
+      ),
+    );;
   }
 }

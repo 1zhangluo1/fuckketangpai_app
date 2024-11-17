@@ -13,7 +13,7 @@ Attence _$AttenceFromJson(Map<String, dynamic> json) => Attence(
               .toList() ??
           [],
       total: (json['total'] as num?)?.toInt() ?? 0,
-      pageSize: (json['pageSize']?.toString()) ?? '',
+      pageSize: json['pageSize'] as String? ?? '',
       attenceCount: (json['attenceCount'] as num?)?.toInt() ?? 0,
       lateCount: (json['lateCount'] as num?)?.toInt() ?? 0,
       absentCount: (json['absentCount'] as num?)?.toInt() ?? 0,
@@ -61,7 +61,7 @@ CourseSignInfo _$CourseSignInfoFromJson(Map<String, dynamic> json) =>
           json['studentattence_updatetime'] as String? ?? '',
       ip: json['ip'] as String?,
       nosign: json['nosign'] as String? ?? '',
-      signTime: json['signTime'] is num ? (json['signTime'] as num).toInt() : int.tryParse(json['signTime'] as String) ?? 0,
+      signTime: (json['signTime'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$CourseSignInfoToJson(CourseSignInfo instance) =>

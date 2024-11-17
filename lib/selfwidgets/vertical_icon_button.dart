@@ -22,8 +22,8 @@ class VerticalIconButton extends StatelessWidget {
             ),
             child: icon,
           ),
-          SizedBox(height: 4),
-          Text(text,style: TextStyle(fontSize: 12),),
+          SizedBox(height: 6),
+          Text(text,style: TextStyle(fontSize: 13),),
         ],
       ),
     );
