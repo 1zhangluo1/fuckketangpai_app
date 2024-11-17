@@ -1,0 +1,56 @@
+{
+  "status": 1,
+  "code": 10000,
+  "message": "访问成功",
+  "data": {
+    "coursename": "熟悉  互动课堂",
+    "uid": "MDAwMDAwMDAwMLOGqduG381phM6YoQ",
+    "createtime": "1700758248",
+    "code": "KXLP3L",
+    "cipher": "Q2EJ",
+    "classname": null,
+    "stopcode": "0",
+    "studytime": "-1",
+    "teachtype": "0",
+    "recommendresource": "1",
+    "forbiddiscuss": "0",
+    "resource_id": "0",
+    "classending": "0",
+    "canvisit": "1",
+    "teacher": {
+      "name": "李玉洁",
+      "avatar": "http://assets.ketangpai.com//Public/Common/img/40/33.png"
+    },
+    "administrator": 0,
+    "studentCount": 28,
+    "theme": {
+      "id": "MDAwMDAwMDAwMLSGz6E",
+      "bgcolor": "#f5f5f5",
+      "bannercolor": "#318eeb",
+      "minpic": "//assets.ketangpai.com/theme/min/01.jpg",
+      "middlepic": "//assets.ketangpai.com/theme/middle/01.jpg",
+      "bigpic": "//assets.ketangpai.com/theme/big/01.jpg",
+      "createtime": null,
+      "minarpic": "//assets.ketangpai.com/theme/min_ar/01.jpg",
+      "bigarpic": "//assets.ketangpai.com/theme/big_ar/01.jpg",
+      "type": "0",
+      "typedesc": null,
+      "version": "1",
+      "deltime": "0",
+      "studentbgpic": "//assets.ketangpai.com/theme/student/big/41.png",
+      "studentminpic": "//assets.ketangpai.com/theme/student/min/41.png",
+      "teacherbgpic": "//assets.ketangpai.com/theme/teacher/big/41.png",
+      "teacherminpic": "//assets.ketangpai.com/theme/teacher/min/41.png"
+    },
+    "groupCount": "1",
+    "types": "",
+    "coid": -1,
+    "isattest": false,
+    "showRecommendChapter": 1,
+    "enrollData": {
+      "enrollstate": "0",
+      "waitAuditCount": 0
+    },
+    "identity": 0
+  }
+}

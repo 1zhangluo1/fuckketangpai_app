@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'attence.g.dart';
 
 @JsonSerializable(explicitToJson: true)

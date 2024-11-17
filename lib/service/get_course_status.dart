@@ -13,6 +13,7 @@ class GetCourseStatus {
     };
     final response = await dio.post('/SummaryApi/attence',data: requestBody);
     final temp = response.data['data'];
+    print(temp);
     final attence = Attence.fromJson(temp);
     return attence;
   }

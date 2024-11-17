@@ -33,7 +33,7 @@ class PrivateSignController extends GetxController {
     if (userList != null) {
       users.clear();
       users.addAll(userList);
-      users.firstWhere((e) => e.uid == Global.user.value.uid).isCheck = true;
+      users.firstWhere((e) => e.uid == Global.user.value.uid,orElse: null).isCheck = true;
     }
     await Future.wait(users.map((user) async {
       final status = await CheckUserStatus.get().checkTokenStatus(user.token);
