@@ -232,10 +232,8 @@ class _CourseStructState extends State<CourseStruct>{
                       width: MediaQuery.of(context).size.width,
                       color: Colors.white,
                       child: PageView(
+                        physics: NeverScrollableScrollPhysics(),
                         controller: controller,
-                        onPageChanged: (index) {
-                          currentIndex.value = index;
-                        },
                         children: [
                           KeepAliveWrapper(child: ExamPage(courseId: widget.courseId,)),
                           KeepAliveWrapper(child: HomeworkPage()),

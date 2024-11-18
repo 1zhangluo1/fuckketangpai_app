@@ -16,7 +16,7 @@ class MainStruct extends StatefulWidget {
 }
 
 class _MainStructState extends State<MainStruct> {
-  final pageController = PageController(initialPage: 2);
+  final pageController = PageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
