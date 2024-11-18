@@ -52,6 +52,9 @@ dependencies:
   pinput: ^5.0.0
   flutter_scankit: ^2.0.3
   flutter_svg: ^2.0.14
+  intl: ^0.20.0
+  flutter_html: ^3.0.0-beta.2
+  html_unescape: ^2.0.0
 
 
 dev_dependencies:

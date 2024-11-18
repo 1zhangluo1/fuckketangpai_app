@@ -5,7 +5,6 @@ import 'package:fuckketangpai/pages/course_detail/announcement/announcement_page
 import 'package:fuckketangpai/pages/course_detail/answer_online_question/answer_question_page.dart';
 import 'package:fuckketangpai/pages/course_detail/course_source/source_page.dart';
 import 'package:fuckketangpai/pages/course_detail/course_ware/course_ware_page.dart';
-import 'package:fuckketangpai/pages/course_detail/exam/exam_page.dart';
 import 'package:fuckketangpai/pages/course_detail/homework/homework_page.dart';
 import 'package:fuckketangpai/pages/course_detail/topic/topic_page.dart';
 import 'package:fuckketangpai/pages/course_sign_status/sign_status_page.dart';
@@ -14,6 +13,8 @@ import 'package:fuckketangpai/selfwidgets/keep_alive_wrapper.dart';
 import 'package:fuckketangpai/selfwidgets/vertical_icon_button.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
 import 'package:get/get.dart';
+
+import 'exam_list/exam_page.dart';
 
 class CourseStruct extends StatefulWidget {
   const CourseStruct({super.key, required this.courseId});

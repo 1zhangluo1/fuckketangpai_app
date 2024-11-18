@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/exam_list_response/exam_list_response.dart';
-import 'package:fuckketangpai/pages/course_detail/exam/exam_controller.dart';
+import 'package:fuckketangpai/pages/exam/prepare_exam_page.dart';
 import 'package:fuckketangpai/selfwidgets/vertical_text_icon.dart';
 import 'package:get/get.dart';
+import 'exam_controller.dart';
 
 class ExamPage extends StatefulWidget {
   const ExamPage({super.key, required this.courseId});
@@ -60,7 +61,7 @@ class _ExamPageState extends State<ExamPage> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child:
          InkWell(
-           onTap: () {},
+           onTap: () => Get.to(PrepareExamPage(courseId: widget.courseId, testPaperId: exam.id)),
            child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,

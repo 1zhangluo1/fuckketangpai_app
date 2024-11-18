@@ -1,0 +1,51 @@
+{
+  "status": 1,
+  "code": 10000,
+  "message": "访问成功",
+  "data": {
+    "testpaper": {
+      "id": "MDAwMDAwMDAwMLOcy5eHqbevhrVyoQ",
+      "uid": "MDAwMDAwMDAwMLOGqduG381phM6YoQ",
+      "courseid": "MDAwMDAwMDAwMLOGz5WGucmyhaVyoQ",
+      "title": "好好编辑的试卷3（切屏）",
+      "createtime": "1731747316",
+      "over": "0",
+      "viewanswer": "1",
+      "cutscreen": {
+        "cutscreenState": 1,
+        "testpaperAllCount": 5,
+        "studentCount": 3,
+        "lastCount": 2
+      },
+      "display": "1",
+      "viewtestpaper": "1",
+      "begintime": "2024-11-16 16:55",
+      "endtime": "",
+      "timelength": 120,
+      "attachment": null,
+      "description": "<p>好好编辑的试卷拿来测试的3</p>",
+      "type": "1",
+      "publishtype": "4",
+      "handupState": "2",
+      "rehandup": "1",
+      "testpaperType": 3,
+      "lessonlink": [
+        {
+          "type": 5,
+          "name": "期末"
+        }
+      ],
+      "totalScore": "34.0",
+      "subjectCount": 6,
+      "consumption": "",
+      "submit_status": 3,
+      "score": "1",
+      "submit_state": 6,
+      "total_score": "34.0",
+      "nickname": "李玉洁",
+      "avatar": "http://assets.ketangpai.com//Public/Common/img/40/33.png",
+      "activitylabel": "测试",
+      "copyright": "0"
+    }
+  }
+}

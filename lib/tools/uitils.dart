@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/foundation.dart';
 
 extension AsyncWhereExtension<T> on Iterable<T> {
@@ -50,5 +50,19 @@ String mapperSignStatus(int num) {
 void debugModePrint(String content) {
   if (kDebugMode) {
     print(content);
+  }
+}
+
+extension TimestampFormatter on int {
+  /// 返回格式化为日期字符串 (yyyy-MM-dd)
+  String get day {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(this * 1000);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  /// 返回格式化为日期加时间字符串 (yyyy-MM-dd HH:mm:ss)
+  String get time {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(this * 1000);
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
 }
