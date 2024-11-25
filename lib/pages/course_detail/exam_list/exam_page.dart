@@ -83,19 +83,72 @@ class _ExamPageState extends State<ExamPage> {
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check_circle_outline_outlined,color: Colors.greenAccent,),
-                      SizedBox(width: 4,),
-                      Text('已批改',style: TextStyle(color: Colors.greenAccent),),
-                    ],
-                  ),
+                  child: mappedIcon(exam.submitState, exam.over)
                 ),
               )
             ],
                    ),
          ),
+    );
+  }
+
+  Widget mappedIcon(int submitState,int over) {
+    if (over == 1) {
+      return overIcon();
+    } else {
+      if (submitState == 4) {
+        return toReview();
+      } else if (submitState < 3) {
+        return failedSubmit();
+      } else if (submitState >= 6){
+        return checkedIcon();
+      } else {
+        return SizedBox();
+      }
+    }
+  }
+
+  Widget checkedIcon() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.check_circle_outline_outlined,color: Colors.greenAccent,),
+        SizedBox(width: 4,),
+        Text('已批改',style: TextStyle(color: Colors.greenAccent),),
+      ],
+    );
+  }
+
+  Widget failedSubmit() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.access_time_outlined,color: Colors.blueAccent,),
+        SizedBox(width: 4,),
+        Text('未提交',style: TextStyle(color: Colors.blueAccent),),
+      ],
+    );
+  }
+
+  Widget toReview() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.access_time_outlined,color: Colors.blueAccent,),
+        SizedBox(width: 4,),
+        Text('待批改',style: TextStyle(color: Colors.blueAccent),),
+      ],
+    );
+  }
+
+  Widget overIcon() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.access_alarm_outlined,color: Colors.grey,),
+        SizedBox(width: 4,),
+        Text('已结束',style: TextStyle(color: Colors.grey),),
+      ],
     );
   }
 

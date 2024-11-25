@@ -1,0 +1,221 @@
+{
+  "status": 1,
+  "code": 10000,
+  "message": "访问成功",
+  "data": {
+    "lists": [
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhd6coQ",
+        "title": "<p>在人的一生中，遇见知己是一件比较容易的事情。<br></p><p style=\"text-align: center; \"><img src=\"http://img.ketangpai.com/ketangpai.aliapp.com/1/webroot/Uploads/Download/2016-03-21/56efc9940aa08.png?OSSAccessKeyId=LTAItfPkNIKJFibY&Expires=4616801830&Signature=o4vPrg8wP0UKF7xkdKL9muLkhrY%3D\" style=\"max-width: 100%; width: 252px; height: 189.99px;\" class=\"\"><br></p><p><br></p>",
+        "type": "1",
+        "score": "10.0",
+        "sort": "0",
+        "attachment": null,
+        "difficulty": "2",
+        "replenishtype": "判断题",
+        "extract": true,
+        "options": [
+          {
+            "id": "246285948",
+            "subjectid": "72710178",
+            "title": "错",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285947",
+            "subjectid": "72710178",
+            "title": "对",
+            "status": "0",
+            "deltime": "0"
+          }
+        ],
+        "myanswer": ""
+      },
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhqiCoQ",
+        "title": "<p>现在安卓开发Google官方推荐的语言是什么</p>",
+        "type": "5",
+        "score": "1.0",
+        "sort": "6",
+        "attachment": null,
+        "difficulty": "1",
+        "replenishtype": "填空题",
+        "extract": true,
+        "options": [],
+        "myanswer": null
+      },
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhd6goQ",
+        "title": "<p>塞利格曼是( &nbsp; &nbsp;)国心理学家，主要从事习得性无助、抑郁、乐观主义、悲观主义等方面的研究。</p>",
+        "type": "2",
+        "score": "10.0",
+        "sort": "1",
+        "attachment": null,
+        "difficulty": "2",
+        "replenishtype": "单选题",
+        "extract": true,
+        "options": [
+          {
+            "id": "246285951",
+            "subjectid": "72710179",
+            "title": "<p>德国</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285952",
+            "subjectid": "72710179",
+            "title": "<p>法国</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285949",
+            "subjectid": "72710179",
+            "title": "<p>美国</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285950",
+            "subjectid": "72710179",
+            "title": "<p>英国</p>",
+            "status": "0",
+            "deltime": "0"
+          }
+        ],
+        "myanswer": ""
+      },
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhqh2oQ",
+        "title": "<p>你觉得你的幸福是什么？</p><p style=\"text-align: center; \"><img src=\"http://img.ketangpai.com/ketangpai.aliapp.com/1/webroot/Uploads/Download/2016-03-21/56efc9ee3c090.png?OSSAccessKeyId=LTAItfPkNIKJFibY&Expires=4616801830&Signature=l2xV68IxTkrZqMwFVzQmP1ahEcE%3D\" style=\"max-width: 100%; width: 377px; height: 252.73px;\" class=\"clicked\"><br></p>",
+        "type": "4",
+        "score": "10.0",
+        "sort": "2",
+        "attachment": null,
+        "difficulty": "2",
+        "replenishtype": "简答题",
+        "extract": true,
+        "options": [],
+        "myanswer": "",
+        "answerAttachment": null
+      },
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhqh6oQ",
+        "title": "<p>属于计算机编程语言的是</p>",
+        "type": "3",
+        "score": "2.0",
+        "sort": "4",
+        "attachment": null,
+        "difficulty": "1",
+        "replenishtype": "多选题",
+        "extract": true,
+        "options": [
+          {
+            "id": "246285956",
+            "subjectid": "72710181",
+            "title": "<p>汉语</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285953",
+            "subjectid": "72710181",
+            "title": "<p>java</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285955",
+            "subjectid": "72710181",
+            "title": "<p>c++</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285954",
+            "subjectid": "72710181",
+            "title": "<p>python</p>",
+            "status": "0",
+            "deltime": "0"
+          }
+        ],
+        "myanswer": "246285955|246285954|246285953"
+      },
+      {
+        "id": "MDAwMDAwMDAwMLSsrZeGuaewhqh-oQ",
+        "title": "<p>属于编程语言编写平台的是</p>",
+        "type": "6",
+        "score": "1.0",
+        "sort": "5",
+        "attachment": null,
+        "difficulty": "1",
+        "replenishtype": "不定项题",
+        "extract": true,
+        "options": [
+          {
+            "id": "246285958",
+            "subjectid": "72710182",
+            "title": "<p>PyCharm</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285957",
+            "subjectid": "72710182",
+            "title": "<p>AndroidStudio</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285959",
+            "subjectid": "72710182",
+            "title": "<p>QQ</p>",
+            "status": "0",
+            "deltime": "0"
+          },
+          {
+            "id": "246285960",
+            "subjectid": "72710182",
+            "title": "<p>WeChat</p>",
+            "status": "0",
+            "deltime": "0"
+          }
+        ],
+        "myanswer": null
+      }
+    ],
+    "handupState": "0",
+    "rehandup": "1",
+    "testpaper": {
+      "begintime": "1731748202",
+      "endtime": "0",
+      "timelength": 7200,
+      "title": "好好编辑的试卷4（切屏）",
+      "totalCount": 6,
+      "totalScore": 34,
+      "style": "1",
+      "allowcopy": "0",
+      "allowpaster": "0",
+      "fallback": "0",
+      "countDown": -1,
+      "viewanswer": "0",
+      "cutscreen": {
+        "cutscreenState": 1,
+        "testpaperAllCount": 5,
+        "studentCount": 0,
+        "lastCount": 5,
+        "testCode": "",
+        "isFirstJoin": 1
+      },
+      "over": "0",
+      "isrand": "1",
+      "randextra": "0",
+      "randtype": "3"
+    },
+    "remainTimes": 7122,
+    "begintime": null,
+    "fallback_number": 1
+  }
+}

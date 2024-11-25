@@ -1,11 +1,18 @@
-import 'package:dio/dio.dart' as dios;
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import '../selfwidgets/Toast.dart';
 
 class SignWays {
 
-  final dio = dios.Dio();
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://openapiv5.ketangpai.com',
+      followRedirects: false,
+      validateStatus: (int? status) => status != null,
+    )
+  );
 
   Future<bool> scanToSign(String params,String token) async {
     DateTime now = DateTime.now();

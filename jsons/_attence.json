@@ -2,25 +2,6 @@
     "status": 1,
     "data": [
       {
-        "id": "MDAwMDAwMDAwMLScvZiHz79phNtyoQ",
-        "title": "2024.10.31",
-        "type": "2",
-        "createtime": "1730351187",
-        "checkouttime": "0",
-        "duration": "600",
-        "checkinover": "0",
-        "checkoutover": "0",
-        "checkinovertime": "0",
-        "checkoutovertime": "0",
-        "overtime": "1730351201",
-        "state": "3",
-        "studentattence_createtime": "1730351187",
-        "studentattence_updatetime": "1730720584",
-        "ip": null,
-        "nosign": "1",
-        "signTime": 0
-      },
-      {
         "id": "MDAwMDAwMDAwMLScvZaG381qhMtyoQ",
         "title": "2024.10.26",
         "type": "2",

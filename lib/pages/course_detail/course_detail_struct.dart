@@ -13,7 +13,6 @@ import 'package:fuckketangpai/selfwidgets/keep_alive_wrapper.dart';
 import 'package:fuckketangpai/selfwidgets/vertical_icon_button.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
 import 'package:get/get.dart';
-
 import 'exam_list/exam_page.dart';
 
 class CourseStruct extends StatefulWidget {
@@ -65,7 +64,7 @@ class _CourseStructState extends State<CourseStruct>{
                         BlendMode.darken, // 使用 darken 模式
                       ),
                       child: Image.network(
-                        'https:${courseDetail.value.theme.studentbgpic}',
+                        'https:${courseDetail.value.theme.bigpic}',
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 200,

@@ -143,7 +143,7 @@ class _PrepareExamPageState extends State<PrepareExamPage> {
               SizedBox(
                 width: 5,
               ),
-              Text(examInfo.value.title,style: TextStyle(fontSize: 22),)
+              Text(examInfo.value.title,style: TextStyle(fontSize: 21),overflow: TextOverflow.ellipsis,)
             ],
           ),
           SizedBox(

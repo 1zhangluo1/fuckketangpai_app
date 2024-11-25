@@ -62,7 +62,7 @@ Testpaper _$TestpaperFromJson(Map<String, dynamic> json) => Testpaper(
       viewtestpaper: json['viewtestpaper'] as String? ?? '',
       begintime: json['begintime'] as String? ?? '',
       endtime: json['endtime'] as String? ?? '',
-      timelength: (num.tryParse(json['timelength'].toString()) ?? 0).toInt(),
+      timelength: ( int.tryParse(json['timelength']) as num?)?.toInt() ?? 0,
       attachment: json['attachment'],
       description: json['description'] as String? ?? '',
       type: json['type'] as String? ?? '',

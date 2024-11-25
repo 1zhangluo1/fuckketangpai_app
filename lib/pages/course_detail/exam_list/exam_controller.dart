@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:fuckketangpai/models/exam_list_response/exam_list_response.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/service/exam_data.dart';
-import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 
 class ExamController extends GetxController {

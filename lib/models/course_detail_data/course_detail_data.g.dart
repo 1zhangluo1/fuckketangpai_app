@@ -108,7 +108,7 @@ CourseInfo _$CourseInfoFromJson(Map<String, dynamic> json) => CourseInfo(
       theme: json['theme'] == null
           ? Theme.emptyInstance()
           : Theme.fromJson(json['theme'] as Map<String, dynamic>),
-      groupCount: json['groupCount'] as String? ?? '',
+      groupCount: json['groupCount'].toString() as String? ?? '',
       types: json['types'] as String? ?? '',
       coid: (json['coid'] as num?)?.toInt() ?? 0,
       isattest: json['isattest'] as bool? ?? false,
