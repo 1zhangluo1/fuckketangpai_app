@@ -82,7 +82,7 @@ class _PrepareExamPageState extends State<PrepareExamPage> {
               padding: EdgeInsets.fromLTRB(16,12,16,12),
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () => Get.to(ExamExecutePage()),
+                  onPressed: () => Get.to(ExamExecutePage(courseId: widget.courseId, testPaperId: widget.testPaperId,)),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(

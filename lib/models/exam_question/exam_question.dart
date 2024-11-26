@@ -1,3 +1,4 @@
+import 'package:html_unescape/html_unescape.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'exam_question.g.dart';
@@ -78,6 +79,8 @@ class Lists {
       required this.replenishtype,
       required this.extract,
       required this.options,
+        this.content,
+        required this.imgUrls,
       this.myanswer});
 
   @JsonKey(name: "id", defaultValue: "")
@@ -113,12 +116,18 @@ class Lists {
   @JsonKey(name: "myanswer")
   String? myanswer;
 
+  @JsonKey(ignore: true, defaultValue: '')
+  String? content;
+
+  @JsonKey(ignore: true, defaultValue: [])
+  List<String> imgUrls;
+
 
   factory Lists.fromJson(Map<String, dynamic> json) => _$ListsFromJson(json);
   
   Map<String, dynamic> toJson() => _$ListsToJson(this);
   
-  factory Lists.emptyInstance() => Lists(id: "", title: "", type: "", score: "", sort: "", difficulty: "", replenishtype: "", extract: false, options: []);
+  factory Lists.emptyInstance() => Lists(id: "", title: "", type: "", score: "", sort: "", difficulty: "", replenishtype: "", extract: false, options: [], imgUrls: []);
 }
 
 @JsonSerializable(explicitToJson: true)

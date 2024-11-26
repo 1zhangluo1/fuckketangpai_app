@@ -1,6 +1,7 @@
 import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/models/exam_info/exam_info.dart';
 import 'package:fuckketangpai/models/exam_list_response/exam_list_response.dart';
+import 'package:fuckketangpai/models/exam_question/exam_question.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/tools/generate_timestamp.dart';
 
@@ -45,6 +46,24 @@ class ExamData {
     } on Exception catch (e) {
       Toast('考试信息获取失败：$e');
       return ExamInfo.emptyInstance();
+    }
+  }
+
+  Future<ExamQuestion> getExamQuestions({required String courseId, required String testPaperId}) async {
+    final body = {
+      'courseid': courseId,
+      'reqtimestamp': DateTime.now().toMillisecondsTimestamp(),
+      'testCode': "undefined",
+      'testpaperid': testPaperId
+    };
+    var examQuestion = ExamQuestion.emptyInstance();
+    try {
+      final response = await dio.post('/TestpaperApi/doSubjectList',data: body);
+      examQuestion = ExamQuestion.fromJson(response.data);
+    } on Exception catch (e) {
+      Toast('获取试卷信息错误：$e');
+    } finally {
+      return examQuestion;
     }
   }
 

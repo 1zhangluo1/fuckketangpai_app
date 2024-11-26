@@ -53,7 +53,7 @@ Lists _$ListsFromJson(Map<String, dynamic> json) => Lists(
               ?.map((e) => Options.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      myanswer: json['myanswer'] as String?,
+      myanswer: json['myanswer'] as String?, imgUrls: [],
     );
 
 Map<String, dynamic> _$ListsToJson(Lists instance) => <String, dynamic>{
