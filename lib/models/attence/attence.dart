@@ -64,7 +64,24 @@ class Attence {
     return 'Attence{status: $status, total: $total, attenceCount: $attenceCount, lateCount: $lateCount, absentCount: $absentCount, pleaseCount: $pleaseCount, privateLeaveCount: $privateLeaveCount, totalPleaseCount: $totalPleaseCount, sickLeaveCount: $sickLeaveCount, statutoryCount: $statutoryCount, leaveEarlyCount: $leaveEarlyCount}';
   }
 
-  factory Attence.fromJson(Map<String, dynamic> json) => _$AttenceFromJson(json);
+  factory Attence.fromJson(Map<String, dynamic> json) => Attence(
+    status: (json['status'] as num?)?.toInt() ?? 0,
+    data: (json['data'] as List<dynamic>?)
+        ?.map((e) => CourseSignInfo.fromJson(e as Map<String, dynamic>))
+        .toList() ??
+        [],
+    total: (json['total'] as num?)?.toInt() ?? 0,
+    pageSize: json['pageSize'].toString() as String? ?? '',
+    attenceCount: (json['attenceCount'] as num?)?.toInt() ?? 0,
+    lateCount: (json['lateCount'] as num?)?.toInt() ?? 0,
+    absentCount: (json['absentCount'] as num?)?.toInt() ?? 0,
+    pleaseCount: (json['pleaseCount'] as num?)?.toInt() ?? 0,
+    privateLeaveCount: (json['privateLeaveCount'] as num?)?.toInt() ?? 0,
+    totalPleaseCount: (json['totalPleaseCount'] as num?)?.toInt() ?? 0,
+    sickLeaveCount: (json['sickLeaveCount'] as num?)?.toInt() ?? 0,
+    statutoryCount: (json['statutoryCount'] as num?)?.toInt() ?? 0,
+    leaveEarlyCount: (json['leaveEarlyCount'] as num?)?.toInt() ?? 0,
+  );
   
   Map<String, dynamic> toJson() => _$AttenceToJson(this);
   
@@ -145,7 +162,27 @@ class CourseSignInfo {
   int signTime;
 
 
-  factory CourseSignInfo.fromJson(Map<String, dynamic> json) => _$CourseSignInfoFromJson(json);
+  factory CourseSignInfo.fromJson(Map<String, dynamic> json) => CourseSignInfo(
+    id: json['id'] as String? ?? '',
+    title: json['title'] as String? ?? '',
+    type: json['type'] as String? ?? '',
+    createtime: json['createtime'] as String? ?? '',
+    checkouttime: json['checkouttime'] as String? ?? '',
+    duration: json['duration'] as String? ?? '',
+    checkinover: json['checkinover'] as String? ?? '',
+    checkoutover: json['checkoutover'] as String? ?? '',
+    checkinovertime: json['checkinovertime'] as String? ?? '',
+    checkoutovertime: json['checkoutovertime'] as String? ?? '',
+    overtime: json['overtime'] as String? ?? '',
+    state: json['state'] as String? ?? '',
+    studentattenceCreatetime:
+    json['studentattence_createtime'] as String? ?? '',
+    studentattenceUpdatetime:
+    json['studentattence_updatetime'] as String? ?? '',
+    ip: json['ip'] as String?,
+    nosign: json['nosign'] as String? ?? '',
+    signTime: (json['signTime'] is String ? int.tryParse(json['signTime']) : json['signTime'] as int?)?.toInt() ?? 0,
+  );
   
   Map<String, dynamic> toJson() => _$CourseSignInfoToJson(this);
   

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fuckketangpai/global/static.dart';
 import 'package:fuckketangpai/models/exam_info/exam_info.dart';
+import 'package:fuckketangpai/pages/exam/exam_execute/exam_execute_page.dart';
 import 'package:fuckketangpai/selfwidgets/colored_container_text.dart';
 import 'package:fuckketangpai/service/exam_data.dart';
 import 'package:fuckketangpai/tools/uitils.dart';
@@ -81,7 +82,7 @@ class _PrepareExamPageState extends State<PrepareExamPage> {
               padding: EdgeInsets.fromLTRB(16,12,16,12),
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(ExamExecutePage()),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(

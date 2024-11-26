@@ -215,7 +215,45 @@ class Testpaper {
   String copyright;
 
 
-  factory Testpaper.fromJson(Map<String, dynamic> json) => _$TestpaperFromJson(json);
+  factory Testpaper.fromJson(Map<String, dynamic> json) => Testpaper(
+    id: json['id'] as String? ?? '',
+    uid: json['uid'] as String? ?? '',
+    courseid: json['courseid'] as String? ?? '',
+    title: json['title'] as String? ?? '',
+    createtime: json['createtime'] as String? ?? '',
+    over: json['over'].toString() as String? ?? '',
+    viewanswer: json['viewanswer'] as String? ?? '',
+    cutscreen: json['cutscreen'] == null
+        ? Cutscreen.emptyInstance()
+        : Cutscreen.fromJson(json['cutscreen'] as Map<String, dynamic>),
+    display: json['display'] as String? ?? '',
+    viewtestpaper: json['viewtestpaper'] as String? ?? '',
+    begintime: json['begintime'] as String? ?? '',
+    endtime: json['endtime'] as String? ?? '',
+    timelength: ((json['timelength'] is String ? int.tryParse(json['timelength']) : json['timelength']) as num?)?.toInt() ?? 0,
+    attachment: json['attachment'],
+    description: json['description'] as String? ?? '',
+    type: json['type'] as String? ?? '',
+    publishtype: json['publishtype'] as String? ?? '',
+    handupState: json['handupState'] as String? ?? '',
+    rehandup: json['rehandup'] as String? ?? '',
+    testpaperType: (json['testpaperType'] as num?)?.toInt() ?? 0,
+    lessonlink: (json['lessonlink'] as List<dynamic>?)
+        ?.map((e) => Lessonlink.fromJson(e as Map<String, dynamic>))
+        .toList() ??
+        [],
+    totalScore: json['totalScore'] as String? ?? '',
+    subjectCount: (json['subjectCount'] as num?)?.toInt() ?? 0,
+    consumption: json['consumption'] as String? ?? '',
+    submitStatus: (json['submit_status'] as num?)?.toInt() ?? 0,
+    score: json['score'] as String? ?? '',
+    submitState: (json['submit_state'] as num?)?.toInt() ?? 0,
+    totalScore2: json['total_score'] as String? ?? '',
+    nickname: json['nickname'] as String? ?? '',
+    avatar: json['avatar'] as String? ?? '',
+    activitylabel: json['activitylabel'] as String? ?? '',
+    copyright: json['copyright'] as String? ?? '',
+  );
   
   Map<String, dynamic> toJson() => _$TestpaperToJson(this);
   
