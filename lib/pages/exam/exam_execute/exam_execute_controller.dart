@@ -1,5 +1,6 @@
 import 'package:fuckketangpai/models/exam_question/exam_question.dart';
 import 'package:fuckketangpai/service/exam_data.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:html/parser.dart' show parse;
@@ -23,7 +24,7 @@ class ExamExecuteController extends GetxController {
     final content = htmlString.querySelector('p')?.text ?? '无内容';
     examQuestions.value.data.lists[0].options.forEach((e) {
       final htmlTitle = parse(e.title);
-      e.title = htmlTitle.querySelector('p')?.text ?? '';
+      e.title = htmlTitle.querySelector('p')?.text ?? e.title.toString();
     });
     final urls = htmlString.querySelectorAll('img');
     final imgUrls = urls
