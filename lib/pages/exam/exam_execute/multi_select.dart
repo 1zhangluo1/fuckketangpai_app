@@ -28,9 +28,6 @@ class _MultiSelectState extends State<MultiSelect> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16,
-          ),
           Row(
             children: [
               Text(
@@ -67,13 +64,17 @@ class _MultiSelectState extends State<MultiSelect> {
               width: MediaQuery.of(context).size.width - 150,
             ),
           ) : SizedBox(),
-          ...widget.question.options.map((option) {
+          ...widget.question.options.asMap().entries.map((entry) {
+            int index = entry.key;
+            final option = entry.value;
+            String letter = String.fromCharCode(65 + index);
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: CheckboxListTile(
-                    title: Text((option.title.toString()), style: textStyle),
+                    title: Text('$letter.${option.title.toString()}', style: textStyle),
                     value: option.selected,
                     contentPadding: EdgeInsets.zero,
+                    activeColor: Colors.greenAccent,
                     onChanged: (value) {
                       setState(() {
                         option.selected = !option.selected;

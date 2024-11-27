@@ -20,14 +20,16 @@ class ExamExecutePage extends StatefulWidget {
 class _ExamExecutePageState extends State<ExamExecutePage> {
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(color: Colors.black, fontSize: 18);
+    final textStyle = TextStyle(fontSize: 18);
     final textWeightStyle = TextStyle(color: Colors.blue, fontSize: 20);
     final c = Get.put(ExamExecuteController(
         courseId: widget.courseId, testPaperId: widget.testPaperId));
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('考试系统'),
+        backgroundColor: Colors.white,
+        title: Text(c.examQuestions.value.data.testpaper.title),
         actions: [
           Container(
             height: 30,
@@ -42,7 +44,7 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
                 )),
           ),
           SizedBox(
-            width: 12,
+            width: 16,
           ),
           Container(
             height: 30,
@@ -58,7 +60,7 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
                 )),
           ),
           SizedBox(
-            width: 12,
+            width: 16,
           )
         ],
       ),

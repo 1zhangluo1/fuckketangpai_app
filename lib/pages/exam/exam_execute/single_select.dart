@@ -21,7 +21,7 @@ class SingleSelect extends StatefulWidget {
 }
 
 class _SingleSelectState extends State<SingleSelect> {
-  final textStyle = TextStyle(color: Colors.black, fontSize: 18);
+  final textStyle = TextStyle(fontSize: 18);
   final textWeightStyle = TextStyle(color: Colors.blue, fontSize: 20);
   final groupValue = ''.obs;
   final c = Get.find<ExamExecuteController>();
@@ -43,9 +43,6 @@ class _SingleSelectState extends State<SingleSelect> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16,
-          ),
           Row(
             children: [
               Text(
@@ -85,13 +82,17 @@ class _SingleSelectState extends State<SingleSelect> {
               : SizedBox(
                   height: 16,
                 ),
-          ...widget.question.options.map((option) {
+          ...widget.question.options.asMap().entries.map((entry) {
+            int index = entry.key;
+            var option = entry.value;
+            String letter = String.fromCharCode(65 + index); // 65是ASCII码中A的值
             return Obx(
               () => RadioListTile<String>(
-                  title: Text((option.title.toString()), style: textStyle),
+                  title: Text('$letter.${option.title.toString()}', style: textStyle),
                   value: option.id.toString(),
                   groupValue: groupValue.value,
                   contentPadding: EdgeInsets.zero,
+                  activeColor: Colors.greenAccent,
                   onChanged: (value) {
                     groupValue.value = value!;
                   }),

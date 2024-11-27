@@ -36,9 +36,6 @@ class _ShortAnswerQuestionState extends State<ShortAnswerQuestion> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16,
-          ),
           Row(
             children: [
               Text(

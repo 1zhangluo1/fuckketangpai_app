@@ -41,9 +41,6 @@ class _FillBlankQuestionState extends State<FillBlankQuestion> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16,
-          ),
           Row(
             children: [
               Obx(
@@ -86,6 +83,7 @@ class _FillBlankQuestionState extends State<FillBlankQuestion> {
                   height: 16,
                 ),
           TextField(
+            cursorColor: Colors.blue,
             maxLines: null,
             minLines: 3,
             keyboardType: TextInputType.multiline,
