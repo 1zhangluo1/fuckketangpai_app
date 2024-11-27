@@ -28,7 +28,7 @@ Options _$OptionsFromJson(Map<String, dynamic> json) => Options(
       subjectid: json['subjectid'] as String? ?? '',
       title: json['title'] as String? ?? '',
       status: json['status'] as String? ?? '',
-      deltime: json['deltime'] as String? ?? '',
+      deltime: json['deltime'] as String? ?? '', selected: false,
     );
 
 Map<String, dynamic> _$OptionsToJson(Options instance) => <String, dynamic>{

@@ -5,7 +5,6 @@ part 'exam_question.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ExamQuestion {
-
   ExamQuestion(
       {required this.status,
       required this.code,
@@ -24,22 +23,23 @@ class ExamQuestion {
   @JsonKey(name: "data", defaultValue: Data.emptyInstance)
   Data data;
 
+  factory ExamQuestion.fromJson(Map<String, dynamic> json) =>
+      _$ExamQuestionFromJson(json);
 
-  factory ExamQuestion.fromJson(Map<String, dynamic> json) => _$ExamQuestionFromJson(json);
-  
   Map<String, dynamic> toJson() => _$ExamQuestionToJson(this);
-  
-  factory ExamQuestion.emptyInstance() => ExamQuestion(status: 0, code: 0, message: "", data: Data.emptyInstance());
+
+  factory ExamQuestion.emptyInstance() =>
+      ExamQuestion(status: 0, code: 0, message: "", data: Data.emptyInstance());
 }
 
 @JsonSerializable(explicitToJson: true)
 class Options {
-
   Options(
       {required this.id,
       required this.subjectid,
       required this.title,
       required this.status,
+      required this.selected,
       required this.deltime});
 
   @JsonKey(name: "id", defaultValue: "")
@@ -57,17 +57,20 @@ class Options {
   @JsonKey(name: "deltime", defaultValue: "")
   String deltime;
 
+  @JsonKey(ignore: true, defaultValue: false)
+  bool selected;
 
-  factory Options.fromJson(Map<String, dynamic> json) => _$OptionsFromJson(json);
-  
+  factory Options.fromJson(Map<String, dynamic> json) =>
+      _$OptionsFromJson(json);
+
   Map<String, dynamic> toJson() => _$OptionsToJson(this);
-  
-  factory Options.emptyInstance() => Options(id: "", subjectid: "", title: "", status: "", deltime: "");
+
+  factory Options.emptyInstance() =>
+      Options(id: "", subjectid: "", title: "", status: "", deltime: "", selected: false);
 }
 
 @JsonSerializable(explicitToJson: true)
 class Lists {
-
   Lists(
       {required this.id,
       required this.title,
@@ -79,8 +82,8 @@ class Lists {
       required this.replenishtype,
       required this.extract,
       required this.options,
-        this.content,
-        required this.imgUrls,
+      this.content,
+      required this.imgUrls,
       this.myanswer});
 
   @JsonKey(name: "id", defaultValue: "")
@@ -122,17 +125,25 @@ class Lists {
   @JsonKey(ignore: true, defaultValue: [])
   List<String> imgUrls;
 
-
   factory Lists.fromJson(Map<String, dynamic> json) => _$ListsFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$ListsToJson(this);
-  
-  factory Lists.emptyInstance() => Lists(id: "", title: "", type: "", score: "", sort: "", difficulty: "", replenishtype: "", extract: false, options: [], imgUrls: []);
+
+  factory Lists.emptyInstance() => Lists(
+      id: "",
+      title: "",
+      type: "",
+      score: "",
+      sort: "",
+      difficulty: "",
+      replenishtype: "",
+      extract: false,
+      options: [],
+      imgUrls: []);
 }
 
 @JsonSerializable(explicitToJson: true)
 class Cutscreen {
-
   Cutscreen(
       {required this.cutscreenState,
       required this.testpaperAllCount,
@@ -159,17 +170,22 @@ class Cutscreen {
   @JsonKey(name: "isFirstJoin", defaultValue: 0)
   int isFirstJoin;
 
+  factory Cutscreen.fromJson(Map<String, dynamic> json) =>
+      _$CutscreenFromJson(json);
 
-  factory Cutscreen.fromJson(Map<String, dynamic> json) => _$CutscreenFromJson(json);
-  
   Map<String, dynamic> toJson() => _$CutscreenToJson(this);
-  
-  factory Cutscreen.emptyInstance() => Cutscreen(cutscreenState: 0, testpaperAllCount: 0, studentCount: 0, lastCount: 0, testCode: "", isFirstJoin: 0);
+
+  factory Cutscreen.emptyInstance() => Cutscreen(
+      cutscreenState: 0,
+      testpaperAllCount: 0,
+      studentCount: 0,
+      lastCount: 0,
+      testCode: "",
+      isFirstJoin: 0);
 }
 
 @JsonSerializable(explicitToJson: true)
 class Testpaper {
-
   Testpaper(
       {required this.begintime,
       required this.endtime,
@@ -240,17 +256,33 @@ class Testpaper {
   @JsonKey(name: "randtype", defaultValue: "")
   String randtype;
 
+  factory Testpaper.fromJson(Map<String, dynamic> json) =>
+      _$TestpaperFromJson(json);
 
-  factory Testpaper.fromJson(Map<String, dynamic> json) => _$TestpaperFromJson(json);
-  
   Map<String, dynamic> toJson() => _$TestpaperToJson(this);
-  
-  factory Testpaper.emptyInstance() => Testpaper(begintime: "", endtime: "", timelength: 0, title: "", totalCount: 0, totalScore: 0, style: "", allowcopy: "", allowpaster: "", fallback: "", countDown: 0, viewanswer: "", cutscreen: Cutscreen.emptyInstance(), over: "", isrand: "", randextra: "", randtype: "");
+
+  factory Testpaper.emptyInstance() => Testpaper(
+      begintime: "",
+      endtime: "",
+      timelength: 0,
+      title: "",
+      totalCount: 0,
+      totalScore: 0,
+      style: "",
+      allowcopy: "",
+      allowpaster: "",
+      fallback: "",
+      countDown: 0,
+      viewanswer: "",
+      cutscreen: Cutscreen.emptyInstance(),
+      over: "",
+      isrand: "",
+      randextra: "",
+      randtype: "");
 }
 
 @JsonSerializable(explicitToJson: true)
 class Data {
-
   Data(
       {required this.lists,
       required this.handupState,
@@ -281,12 +313,15 @@ class Data {
   @JsonKey(name: "fallback_number", defaultValue: 0)
   int fallbackNumber;
 
-
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$DataToJson(this);
-  
-  factory Data.emptyInstance() => Data(lists: [], handupState: "", rehandup: "", testpaper: Testpaper.emptyInstance(), remainTimes: 0, fallbackNumber: 0);
+
+  factory Data.emptyInstance() => Data(
+      lists: [],
+      handupState: "",
+      rehandup: "",
+      testpaper: Testpaper.emptyInstance(),
+      remainTimes: 0,
+      fallbackNumber: 0);
 }
-
-
