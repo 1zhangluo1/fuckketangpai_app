@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fuckketangpai/models/exam_question/exam_question.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart' show parse;
 import 'exam_execute_controller.dart';
 
 class MultiSelect extends StatefulWidget {
-  const MultiSelect({super.key});
+  const MultiSelect({super.key, required this.question, required this.courseId, required this.testPaperId});
+  
+  final Lists question;
+  final String courseId;
+  final String testPaperId;
 
   @override
   State<MultiSelect> createState() => _MultiSelectState();
@@ -39,30 +44,30 @@ class _MultiSelectState extends State<MultiSelect> {
               SizedBox(
                 width: 5,
               ),
-              Text(c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].replenishtype, style: textStyle),
+              Text(widget.question.replenishtype, style: textStyle),
               SizedBox(
                 width: 5,
               ),
               Text(
-                  '(分值${c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].score}分，难度：${c.difficultyMapper(int.parse(c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].difficulty))})',
+                  '(分值${widget.question.score}分，难度：${c.difficultyMapper(int.parse(widget.question.difficulty))})',
                   style: textStyle),
             ],
           ),
           SelectableText(
-              parse(c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].title).querySelector('p')?.text ?? '无内容',
+              parse(widget.question.title).querySelector('p')?.text ?? '无内容',
               style: textStyle),
           SizedBox(
             height: 16,
           ),
-          c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].imgUrls.isNotEmpty
+          widget.question.imgUrls.isNotEmpty
               ? Center(
             child: Image.network(
-              c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].imgUrls[0],
+              widget.question.imgUrls[0],
               fit: BoxFit.contain,
               width: MediaQuery.of(context).size.width - 150,
             ),
           ) : SizedBox(),
-          ...c.examQuestions.value.data.lists[c.currentPageNumber.value - 1].options.map((option) {
+          ...widget.question.options.map((option) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: CheckboxListTile(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/pages/exam/exam_execute/exam_execute_controller.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import '../../../models/exam_question/exam_question.dart';
 import 'package:html/parser.dart' show parse;
@@ -7,9 +8,13 @@ import 'package:html/parser.dart' show parse;
 class SingleSelect extends StatefulWidget {
   const SingleSelect(
       {super.key,
-      required this.question});
+      required this.question,
+      required this.courseId,
+      required this.testPaperId});
 
   final Lists question;
+  final String courseId;
+  final String testPaperId;
 
   @override
   State<SingleSelect> createState() => _SingleSelectState();
@@ -20,6 +25,17 @@ class _SingleSelectState extends State<SingleSelect> {
   final textWeightStyle = TextStyle(color: Colors.blue, fontSize: 20);
   final groupValue = ''.obs;
   final c = Get.find<ExamExecuteController>();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.question.options.forEach((e) {
+      if (e.selected) {
+        groupValue.value = e.id;
+      }
+    });
+    debugModePrint(groupValue.value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +73,18 @@ class _SingleSelectState extends State<SingleSelect> {
               style: textStyle),
           widget.question.imgUrls.isNotEmpty
               ? Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Center(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Center(
                     child: Image.network(
                       widget.question.imgUrls[0],
                       fit: BoxFit.contain,
                       width: MediaQuery.of(context).size.width - 150,
                     ),
                   ),
-              )
-              : SizedBox(height: 16,),
+                )
+              : SizedBox(
+                  height: 16,
+                ),
           ...widget.question.options.map((option) {
             return Obx(
               () => RadioListTile<String>(
@@ -76,8 +94,6 @@ class _SingleSelectState extends State<SingleSelect> {
                   contentPadding: EdgeInsets.zero,
                   onChanged: (value) {
                     groupValue.value = value!;
-                    print(value);
-                    print(groupValue.value);
                   }),
             );
           }).toList(),

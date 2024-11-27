@@ -65,8 +65,13 @@ class Options {
 
   Map<String, dynamic> toJson() => _$OptionsToJson(this);
 
-  factory Options.emptyInstance() =>
-      Options(id: "", subjectid: "", title: "", status: "", deltime: "", selected: false);
+  factory Options.emptyInstance() => Options(
+      id: "",
+      subjectid: "",
+      title: "",
+      status: "",
+      deltime: "",
+      selected: false);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -84,6 +89,7 @@ class Lists {
       required this.options,
       this.content,
       required this.imgUrls,
+      required this.answerStringContents,
       this.myanswer});
 
   @JsonKey(name: "id", defaultValue: "")
@@ -125,6 +131,9 @@ class Lists {
   @JsonKey(ignore: true, defaultValue: [])
   List<String> imgUrls;
 
+  @JsonKey(ignore: true, defaultValue: [])
+  List<String> answerStringContents;
+
   factory Lists.fromJson(Map<String, dynamic> json) => _$ListsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ListsToJson(this);
@@ -139,7 +148,8 @@ class Lists {
       replenishtype: "",
       extract: false,
       options: [],
-      imgUrls: []);
+      imgUrls: [],
+      answerStringContents: []);
 }
 
 @JsonSerializable(explicitToJson: true)

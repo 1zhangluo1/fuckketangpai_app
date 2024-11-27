@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fuckketangpai/pages/exam/exam_execute/exam_execute_controller.dart';
 import 'package:fuckketangpai/pages/exam/exam_execute/single_select.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/selfwidgets/keep_alive_wrapper.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart' show parse;
 
@@ -67,7 +69,7 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
             controller: c.pageController,
             physics: NeverScrollableScrollPhysics(),
             children: c.examQuestions.value.data.lists.map((question) {
-              return c.mapperQuestionType(int.tryParse(question.type) ?? 0);
+              return KeepAliveWrapper(child: c.mapperQuestionType(int.tryParse(question.type) ?? 0,question));
             }).toList(),
           ),
         ),
@@ -80,8 +82,8 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
             Expanded(
               child: OutlinedButton(
                   onPressed: () {
-                    c.pageController.jumpToPage(c.currentPageNumber.value - 1);
                     c.currentPageNumber.value <= 1 ? null : c.currentPageNumber.value--;
+                    c.pageController.jumpToPage(c.currentPageNumber.value - 1);
                   },
                   style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
@@ -100,7 +102,7 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
             Expanded(
               child: OutlinedButton(
                   onPressed: () {
-                    c.pageController.jumpToPage(c.currentPageNumber.value + 1);
+                    c.currentPageNumber.value - 1 >= c.examQuestions.value.data.lists.length - 1 ? null : c.pageController.jumpToPage(c.currentPageNumber.value);
                     c.currentPageNumber.value >= c.examQuestions.value.data.lists.length ? Toast('已经是最后一题了哦') : c.currentPageNumber.value++;
                   },
                   style: OutlinedButton.styleFrom(
