@@ -41,7 +41,7 @@ class ExamExecuteController extends GetxController {
     }
   }
 
-  Future<void> saveAllSelectedAnswer() async {
+  Future<void> saveAllAnswer() async {
     int i = 0;
     List<Future<bool>> futures = [];
     examQuestions.value.data.lists.forEach((question) {
@@ -64,6 +64,11 @@ class ExamExecuteController extends GetxController {
     });
     await Future.wait(futures);
     Toast('保存完毕');
+  }
+
+  Future<void> handUpTest() async {
+    await saveAllAnswer();
+    await ExamData.get().handUpTest(courseId: courseId, testPaperId: testPaperId);
   }
 
   void parseHtmlData(Lists question) {
