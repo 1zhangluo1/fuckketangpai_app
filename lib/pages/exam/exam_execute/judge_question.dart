@@ -87,6 +87,13 @@ class _JudgeQuestionState extends State<JudgeQuestion> {
                   contentPadding: EdgeInsets.zero,
                   activeColor: Colors.greenAccent,
                   onChanged: (value) {
+                    widget.question.options.forEach((e) {
+                      if (e.id == value) {
+                        e.selected = true;
+                      } else {
+                        e.selected = false;
+                      }
+                    });
                     groupValue.value = value!;
                   }),
             );

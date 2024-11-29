@@ -88,12 +88,20 @@ class _SingleSelectState extends State<SingleSelect> {
             String letter = String.fromCharCode(65 + index); // 65是ASCII码中A的值
             return Obx(
               () => RadioListTile<String>(
-                  title: Text('$letter.${option.title.toString()}', style: textStyle),
+                  title: Text('$letter.${option.title.toString()}',
+                      style: textStyle),
                   value: option.id.toString(),
                   groupValue: groupValue.value,
                   contentPadding: EdgeInsets.zero,
                   activeColor: Colors.greenAccent,
                   onChanged: (value) {
+                    widget.question.options.forEach((e) {
+                      if (e.id == value) {
+                        e.selected = true;
+                      } else {
+                        e.selected = false;
+                      }
+                    });
                     groupValue.value = value!;
                   }),
             );

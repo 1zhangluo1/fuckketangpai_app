@@ -67,6 +67,46 @@ class ExamData {
     }
   }
 
+  Future<bool> saveAnswer({required String courseId, required String testPaperId, required String subjectId, required String answer}) async {
+    var result = false;
+    final body = {
+      "courseid": courseId,
+      "testpaperid": testPaperId,
+      "subjectid": subjectId,
+      "answer": answer,
+      "attachment": "",
+      "reqtimestamp": DateTime.now().toMillisecondsTimestamp(),
+    };
+    try {
+      final response = await dio.post('/TestpaperApi/saveAnswer', data: body);
+      print(response.data.toString());
+      if (response.data['code'] == 10000) {
+        result = true;
+      }
+    } on Exception catch (e) {
+      Toast('保存$subjectId失败：$e');
+    } finally {
+      return result;
+    }
+  }
+
+  Future<void> handUpTest({required String courseId, required String testPaperId}) async {
+    final body = {
+      "courseid": courseId,
+      "testpaperid": testPaperId,
+      "reqtimestamp": DateTime.now().toMillisecondsTimestamp()
+    };
+    try {
+      final response = await dio.post('/TestpaperApi/handup',data: body);
+      if (response.data['code'] == 10000) {
+        Toast('提交成功');
+      } else {
+        Toast('保存失败：${response.data['message'].toString()}');
+      }
+    } on Exception catch (e) {
+      Toast('提交失败：$e');
+    }
+  }
 
   ExamData._create();
 

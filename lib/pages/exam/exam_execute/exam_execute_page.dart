@@ -49,7 +49,9 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
           Container(
             height: 30,
             child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  c.saveAllSelectedAnswer();
+                },
                 style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.zero,
                     backgroundColor: Colors.blue,
@@ -70,21 +72,24 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
           () => PageView(
             controller: c.pageController,
             physics: NeverScrollableScrollPhysics(),
-            children: c.examQuestions.value.data.lists.map((question) {
-              return KeepAliveWrapper(child: c.mapperQuestionType(int.tryParse(question.type) ?? 0,question));
-            }).toList(),
+            children: c.examQuestions.value.data.lists
+                .map((question) => KeepAliveWrapper(
+                    child: c.mapperQuestionType(int.tryParse(question.type) ?? 0, question)))
+                .toList(),
           ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16,12,16,24),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: OutlinedButton(
                   onPressed: () {
-                    c.currentPageNumber.value <= 1 ? null : c.currentPageNumber.value--;
+                    c.currentPageNumber.value <= 1
+                        ? null
+                        : c.currentPageNumber.value--;
                     c.pageController.jumpToPage(c.currentPageNumber.value - 1);
                   },
                   style: OutlinedButton.styleFrom(
@@ -104,8 +109,15 @@ class _ExamExecutePageState extends State<ExamExecutePage> {
             Expanded(
               child: OutlinedButton(
                   onPressed: () {
-                    c.currentPageNumber.value - 1 >= c.examQuestions.value.data.lists.length - 1 ? null : c.pageController.jumpToPage(c.currentPageNumber.value);
-                    c.currentPageNumber.value >= c.examQuestions.value.data.lists.length ? Toast('已经是最后一题了哦') : c.currentPageNumber.value++;
+                    c.currentPageNumber.value - 1 >=
+                            c.examQuestions.value.data.lists.length - 1
+                        ? null
+                        : c.pageController
+                            .jumpToPage(c.currentPageNumber.value);
+                    c.currentPageNumber.value >=
+                            c.examQuestions.value.data.lists.length
+                        ? Toast('已经是最后一题了哦')
+                        : c.currentPageNumber.value++;
                   },
                   style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),

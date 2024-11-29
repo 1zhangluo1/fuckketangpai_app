@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fuckketangpai/Internet/network.dart';
 import 'package:fuckketangpai/models/exam_question/exam_question.dart';
 import 'package:fuckketangpai/pages/exam/exam_execute/fill_blank_question.dart';
 import 'package:fuckketangpai/pages/exam/exam_execute/judge_question.dart';
@@ -8,7 +7,7 @@ import 'package:fuckketangpai/pages/exam/exam_execute/short_answer_question.dart
 import 'package:fuckketangpai/pages/exam/exam_execute/single_select.dart';
 import 'package:fuckketangpai/selfwidgets/Toast.dart';
 import 'package:fuckketangpai/service/exam_data.dart';
-import 'package:fuckketangpai/tools/generate_timestamp.dart';
+import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart' show parse;
 
@@ -42,26 +41,29 @@ class ExamExecuteController extends GetxController {
     }
   }
 
-  Future<void> saveAnswer({required String courseId, required String testPaperId, required String subjectId, required String answer}) async {
-    final dio = AppNetwork.get().ketangpaiDio;
-    final body = {
-      "courseid": courseId,
-      "testpaperid": testPaperId,
-      "subjectid": subjectId,
-      "answer": answer,
-      "attachment": "",
-      "reqtimestamp": DateTime.now().toMillisecondsTimestamp(),
-    };
-    try {
-      final response = await dio.post('/TestpaperApi/saveAnswer', data: body);
-      if (response.data['code'] == 10000) {
-        Toast('保存成功');
-      } else {
-        Toast('保存失败');
+  Future<void> saveAllSelectedAnswer() async {
+    int i = 0;
+    List<Future<bool>> futures = [];
+    examQuestions.value.data.lists.forEach((question) {
+      i++;
+      int type = int.parse(question.type);
+      if ( type == 1 || type == 2 ) {
+        question.options.forEach((option) => option.selected ? question.myanswer = option.id.toString() : null);
+      } else if (type == 3 || type == 6) {
+        List<String> answers = [];
+        question.options.forEach((option) {
+          if (option.selected) {
+            answers.add(option.id.toString());
+          }
+        });
+        final myAnswer = answers.isEmpty ? '' : answers.join('|');
+        question.myanswer = myAnswer;
       }
-    } on Exception catch (e) {
-      Toast('保存失败：$e');
-    }
+      debugModePrint('第$i题的回答为：${question.myanswer}');
+      futures.add(ExamData.get().saveAnswer(courseId: courseId, testPaperId: testPaperId, subjectId: question.id, answer: question.myanswer.toString()));
+    });
+    await Future.wait(futures);
+    Toast('保存完毕');
   }
 
   void parseHtmlData(Lists question) {

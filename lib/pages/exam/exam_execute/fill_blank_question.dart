@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuckketangpai/models/exam_question/exam_question.dart';
+import 'package:fuckketangpai/selfwidgets/Toast.dart';
+import 'package:fuckketangpai/service/exam_data.dart';
 import 'package:fuckketangpai/tools/uitils.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart' show parse;
@@ -103,12 +105,11 @@ class _FillBlankQuestionState extends State<FillBlankQuestion> {
           Align(
             alignment: Alignment.centerRight,
             child: OutlinedButton(
-                onPressed: () {
-                  c.saveAnswer(
-                      courseId: widget.courseId,
-                      testPaperId: widget.testPaperId,
-                      subjectId: widget.question.id,
-                      answer: answerController.text);
+                onPressed: () async {
+                  widget.question.myanswer = answerController.text;
+                  final result = await ExamData.get().saveAnswer(courseId: widget.courseId, testPaperId: widget.testPaperId, subjectId: widget.question.id, answer: answerController.text);
+                  if (result) {Toast('保存成功');}
+                  else {Toast('保存失败');}
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.transparent),
